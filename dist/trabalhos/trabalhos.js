@@ -1,5 +1,9 @@
 window.PRI_WORKS = [
   { src: "./trabalhos/extensao-de-cilios.webp", category: "Extensão de Cílios", description: "Extensão de cílios com acabamento delicado", alt: "Cliente observando no espelho o resultado da extensão de cílios" },
   { src: "./trabalhos/extensao-de-cilios-2.webp", category: "Extensão de Cílios", description: "Olhar realçado com extensão de cílios", alt: "Resultado de extensão de cílios em cliente" },
+  { type: "video", src: "./trabalhos/extensao-de-cilios.mp4", poster: "./trabalhos/extensao-de-cilios-video.jpg", category: "Extensão de Cílios", description: "Procedimento de extensão de cílios", alt: "Vídeo de procedimento de extensão de cílios" },
+  { type: "video", src: "./trabalhos/limpeza-de-pele-spa-labial.mp4", poster: "./trabalhos/limpeza-de-pele-spa-labial-video.jpg", category: "Limpeza de Pele + Spa Labial", categories: ["Limpeza de Pele", "Spa Labial"], description: "Cuidados de limpeza de pele e spa labial", alt: "Vídeo de limpeza de pele e spa labial" },
+  { type: "video", src: "./trabalhos/spa-labial-2.mp4", poster: "./trabalhos/spa-labial-2-video.jpg", category: "Spa Labial", description: "Procedimento de spa labial", alt: "Vídeo de procedimento de spa labial" },
+  { type: "video", src: "./trabalhos/limpeza-de-pele.mp4", poster: "./trabalhos/limpeza-de-pele-video.jpg", category: "Limpeza de Pele", description: "Procedimento de limpeza de pele", alt: "Vídeo de procedimento de limpeza de pele" },
   { src: "./trabalhos/design-de-sobrancelhas.webp", category: "Design de Sobrancelhas", description: "Design de sobrancelhas com definição harmoniosa", alt: "Resultado de design de sobrancelhas em cliente" }
 ];

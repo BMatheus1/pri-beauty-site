@@ -3,6 +3,7 @@ const gallery = document.querySelector("#gallery");
 const filterButtons = [...document.querySelectorAll(".filter-button")];
 const lightbox = document.querySelector("#lightbox");
 const lightboxImage = document.querySelector("#lightboxImage");
+const lightboxVideo = document.querySelector("#lightboxVideo");
 const lightboxCategory = document.querySelector("#lightboxCategory");
 const lightboxDescription = document.querySelector("#lightboxDescription");
 
@@ -11,16 +12,33 @@ let activeIndex = 0;
 let touchStartX = 0;
 let lastFocused = null;
 
+function workCategories(work) {
+  return work.categories || [work.category];
+}
+
 function makeCard(work, index) {
+  const isVideo = work.type === "video";
   const button = document.createElement("button");
-  button.className = "work-card";
+  button.className = "work-card" + (isVideo ? " work-card-video" : "");
   button.type = "button";
   button.dataset.index = index;
-  button.setAttribute("aria-label", "Ampliar: " + work.description);
+  button.setAttribute(
+    "aria-label",
+    (isVideo ? "Reproduzir vídeo: " : "Ampliar: ") + work.description
+  );
+
+  const mediaBadge = isVideo
+    ? '<span class="work-media-type" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m9 7 8 5-8 5V7Z"/></svg>Vídeo</span>'
+    : "";
+
+  const actionIcon = isVideo
+    ? '<svg viewBox="0 0 24 24"><path d="m9 7 8 5-8 5V7Z"/></svg>'
+    : '<svg viewBox="0 0 24 24"><path d="M8 16 16 8M10 8h6v6"/></svg>';
   button.innerHTML =
-    '<img src="' + work.src + '" alt="' + work.alt + '" loading="lazy" decoding="async">' +
+    '<img src="' + (work.poster || work.src) + '" alt="' + work.alt + '" loading="lazy" decoding="async">' +
+    mediaBadge +
     '<span class="work-overlay"><small>' + work.category + "</small><strong>" +
-    work.description + '</strong><i aria-hidden="true">↗</i></span>';
+    work.description + '</strong><i aria-hidden="true">' + actionIcon + "</i></span>";
   button.addEventListener("click", () => openLightbox(index, button));
   return button;
 }
@@ -29,7 +47,7 @@ function renderGallery(category = "Todos") {
   visibleWorks =
     category === "Todos"
       ? [...works]
-      : works.filter((work) => work.category === category);
+      : works.filter((work) => workCategories(work).includes(category));
 
   gallery.replaceChildren();
 
@@ -60,11 +78,35 @@ filterButtons.forEach((button) => {
   });
 });
 
-function showLightboxImage() {
+function resetVideo() {
+  lightboxVideo.pause();
+  lightboxVideo.removeAttribute("src");
+  lightboxVideo.removeAttribute("poster");
+  lightboxVideo.load();
+}
+
+function showLightboxMedia(shouldPlay = false) {
   const work = visibleWorks[activeIndex];
   if (!work) return;
-  lightboxImage.src = work.src;
-  lightboxImage.alt = work.alt;
+
+  const isVideo = work.type === "video";
+  lightboxImage.hidden = isVideo;
+  lightboxVideo.hidden = !isVideo;
+
+  if (isVideo) {
+    lightboxImage.src = "";
+    resetVideo();
+    lightboxVideo.src = work.src;
+    lightboxVideo.poster = work.poster || "";
+    lightboxVideo.setAttribute("aria-label", work.alt);
+    lightboxVideo.load();
+    if (shouldPlay) lightboxVideo.play().catch(() => {});
+  } else {
+    resetVideo();
+    lightboxImage.src = work.src;
+    lightboxImage.alt = work.alt;
+  }
+
   lightboxCategory.textContent = work.category;
   lightboxDescription.textContent = work.description;
 }
@@ -72,7 +114,7 @@ function showLightboxImage() {
 function openLightbox(index, trigger) {
   activeIndex = index;
   lastFocused = trigger;
-  showLightboxImage();
+  showLightboxMedia(true);
   lightbox.hidden = false;
   document.body.classList.add("modal-open");
   lightbox.querySelector(".lightbox-close").focus();
@@ -82,6 +124,7 @@ function closeLightbox() {
   lightbox.hidden = true;
   document.body.classList.remove("modal-open");
   lightboxImage.src = "";
+  resetVideo();
   lastFocused?.focus();
 }
 
@@ -89,7 +132,7 @@ function moveLightbox(step) {
   if (!visibleWorks.length) return;
   activeIndex =
     (activeIndex + step + visibleWorks.length) % visibleWorks.length;
-  showLightboxImage();
+  showLightboxMedia(true);
 }
 
 lightbox
@@ -109,6 +152,7 @@ lightbox.addEventListener("click", (event) => {
 lightbox.addEventListener(
   "touchstart",
   (event) => {
+    if (event.target.closest("video, button")) return;
     touchStartX = event.changedTouches[0].screenX;
   },
   { passive: true }
@@ -117,6 +161,7 @@ lightbox.addEventListener(
 lightbox.addEventListener(
   "touchend",
   (event) => {
+    if (event.target.closest("video, button")) return;
     const delta = event.changedTouches[0].screenX - touchStartX;
     if (Math.abs(delta) > 45) moveLightbox(delta > 0 ? -1 : 1);
   },
@@ -127,11 +172,13 @@ document.addEventListener("keydown", (event) => {
   if (lightbox.hidden) return;
 
   if (event.key === "Escape") closeLightbox();
-  if (event.key === "ArrowLeft") moveLightbox(-1);
-  if (event.key === "ArrowRight") moveLightbox(1);
+  if (event.target !== lightboxVideo && event.key === "ArrowLeft") moveLightbox(-1);
+  if (event.target !== lightboxVideo && event.key === "ArrowRight") moveLightbox(1);
 
   if (event.key === "Tab") {
-    const focusable = [...lightbox.querySelectorAll("button")];
+    const focusable = [...lightbox.querySelectorAll("button, video[controls]")].filter(
+      (element) => !element.hidden
+    );
     const first = focusable[0];
     const last = focusable[focusable.length - 1];
 
@@ -148,6 +195,7 @@ document.addEventListener("keydown", (event) => {
 });
 
 renderGallery();
+
 const floatingWhatsapp = document.querySelector(".floating-whatsapp");
 const primaryWhatsapp = document.querySelector(".quick-link-primary");
 
