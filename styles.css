@@ -257,19 +257,49 @@ h1 em {
   background: #efe3d1;
 }
 
-.quick-icon {
+.quick-icon,
+.quick-arrow {
   display: grid;
   place-items: center;
-  width: 30px;
-  height: 30px;
   color: #785c25;
-  font-size: 1rem;
+}
+
+.quick-icon {
+  width: 32px;
+  height: 32px;
+  border: 1px solid rgba(184, 145, 70, 0.24);
+  border-radius: 9px;
+  background: var(--champagne);
 }
 
 .quick-arrow {
+  width: 28px;
+  height: 28px;
   justify-self: end;
-  color: #785c25;
-  font-size: 1rem;
+  border-radius: 50%;
+  background: rgba(198, 166, 103, 0.14);
+}
+
+.quick-icon svg,
+.quick-arrow svg {
+  width: 19px;
+  height: 19px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.quick-arrow svg {
+  width: 16px;
+  height: 16px;
+}
+
+.quick-link-primary .quick-icon,
+.quick-link-primary .quick-arrow {
+  border-color: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.32);
 }
 
 .quick-link-primary {
