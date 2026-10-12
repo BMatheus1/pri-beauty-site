@@ -1,20 +1,98 @@
-const parts = Array.from({length: 16}, function(_, i) { return "./parts/catalogo-" + String(i).padStart(2, "0") + ".part"; });
-const status = document.querySelector("#status"), message = document.querySelector("#message"), progress = document.querySelector("#progress"), viewer = document.querySelector("#viewer"), download = document.querySelector("#download");
-(async function() {
+const parts = Array.from({ length: 16 }, (_, index) =>
+  `./parts/catalogo-${String(index).padStart(2, "0")}.part`
+);
+
+const status = document.querySelector("#status");
+const message = document.querySelector("#message");
+const progress = document.querySelector("#progress");
+const viewer = document.querySelector("#viewer");
+const catalogAction = document.querySelector("#download");
+const prefersExternalViewer =
+  window.matchMedia("(max-width: 820px)").matches ||
+  /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+let catalogUrl = null;
+let retryButton = null;
+
+async function fetchPart(url, attempt = 1) {
+  try {
+    const response = await fetch(url, { cache: "no-store" });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    return await response.arrayBuffer();
+  } catch (error) {
+    if (attempt < 3) {
+      await new Promise((resolve) => setTimeout(resolve, 500 * attempt));
+      return fetchPart(url, attempt + 1);
+    }
+    throw error;
+  }
+}
+
+async function loadCatalog() {
+  if (retryButton) retryButton.hidden = true;
+  catalogAction.hidden = true;
+  progress.parentElement.hidden = false;
+  progress.style.width = "0";
+  message.textContent = "Carregando o arquivo original com segurança.";
+
   try {
     const chunks = [];
-    for (let i = 0; i < parts.length; i++) {
-      const response = await fetch(parts[i]);
-      if (!response.ok) throw new Error("Parte " + (i + 1) + " indisponível");
-      chunks.push(await response.arrayBuffer());
-      progress.style.width = Math.round(((i + 1) / parts.length) * 100) + "%";
-      message.textContent = "Carregando o catálogo… " + (i + 1) + " de " + parts.length;
+    for (let index = 0; index < parts.length; index += 1) {
+      chunks.push(await fetchPart(parts[index]));
+      progress.style.width =
+        Math.round(((index + 1) / parts.length) * 100) + "%";
+      message.textContent =
+        "Carregando o catálogo… " + (index + 1) + " de " + parts.length;
     }
-    const url = URL.createObjectURL(new Blob(chunks, { type: "application/pdf" }));
-    viewer.src = url; viewer.style.display = "block"; download.href = url; download.hidden = false; status.hidden = true;
-    window.addEventListener("beforeunload", function() { URL.revokeObjectURL(url); }, { once: true });
+
+    if (catalogUrl) URL.revokeObjectURL(catalogUrl);
+    catalogUrl = URL.createObjectURL(
+      new Blob(chunks, { type: "application/pdf" })
+    );
+
+    catalogAction.href = catalogUrl;
+    catalogAction.hidden = false;
+
+    if (prefersExternalViewer) {
+      catalogAction.textContent = "Abrir PDF";
+      catalogAction.removeAttribute("download");
+      catalogAction.target = "_blank";
+      catalogAction.rel = "noopener";
+      status.querySelector("strong").textContent = "Catálogo pronto";
+      message.textContent =
+        "Toque em “Abrir PDF” para visualizar o catálogo no seu aparelho.";
+      progress.parentElement.hidden = true;
+    } else {
+      viewer.src = catalogUrl;
+      viewer.style.display = "block";
+      status.hidden = true;
+    }
   } catch (error) {
-    message.textContent = "Não foi possível abrir o catálogo. Tente recarregar esta página.";
-    console.error(error);
+    status.querySelector("strong").textContent =
+      "Não foi possível carregar o catálogo";
+    message.textContent = "Confira sua conexão e tente novamente.";
+    progress.parentElement.hidden = true;
+
+    if (!retryButton) {
+      retryButton = document.createElement("button");
+      retryButton.type = "button";
+      retryButton.textContent = "Tentar novamente";
+      retryButton.style.cssText =
+        "border:1px solid #b28a45;border-radius:999px;padding:10px 18px;background:#b28a45;color:#fff;cursor:pointer";
+      retryButton.addEventListener("click", loadCatalog);
+      message.insertAdjacentElement("afterend", retryButton);
+    }
+    retryButton.hidden = false;
+    console.error("Falha ao carregar o catálogo:", error);
   }
-})();
+}
+
+window.addEventListener(
+  "beforeunload",
+  () => {
+    if (catalogUrl) URL.revokeObjectURL(catalogUrl);
+  },
+  { once: true }
+);
+
+loadCatalog();
