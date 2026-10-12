@@ -561,15 +561,21 @@ h1 em {
 }
 
 .about-photo {
-  width: min(100%, 480px);
+  width: min(78vw, 320px);
   margin: 0 auto;
+  padding: 6px;
+  border: 1px solid rgba(198, 166, 103, 0.52);
+  border-radius: 20px;
+  background: var(--white);
+  box-shadow: 0 12px 34px rgba(40, 40, 40, 0.07);
 }
 
 .about-photo img {
   width: 100%;
-  aspect-ratio: 3 / 4;
-  border-radius: var(--radius);
-  object-fit: cover;
+  height: auto;
+  aspect-ratio: auto;
+  border-radius: 14px;
+  object-fit: contain;
 }
 
 .about-photo figcaption {
