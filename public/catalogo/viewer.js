@@ -29,6 +29,8 @@ async function fetchPart(url, attempt = 1) {
 }
 
 async function loadCatalog() {
+  status.hidden = false;
+  status.style.display = "grid";
   if (retryButton) retryButton.hidden = true;
   catalogAction.hidden = true;
   progress.parentElement.hidden = false;
@@ -37,12 +39,16 @@ async function loadCatalog() {
 
   try {
     const chunks = [];
-    for (let index = 0; index < parts.length; index += 1) {
-      chunks.push(await fetchPart(parts[index]));
-      progress.style.width =
-        Math.round(((index + 1) / parts.length) * 100) + "%";
+    const batchSize = 4;
+    for (let start = 0; start < parts.length; start += batchSize) {
+      const batch = await Promise.all(
+        parts.slice(start, start + batchSize).map(fetchPart)
+      );
+      chunks.push(...batch);
+      const loaded = Math.min(start + batch.length, parts.length);
+      progress.style.width = Math.round((loaded / parts.length) * 100) + "%";
       message.textContent =
-        "Carregando o catálogo… " + (index + 1) + " de " + parts.length;
+        "Carregando o catálogo… " + loaded + " de " + parts.length;
     }
 
     if (catalogUrl) URL.revokeObjectURL(catalogUrl);
@@ -66,6 +72,7 @@ async function loadCatalog() {
       viewer.src = catalogUrl;
       viewer.style.display = "block";
       status.hidden = true;
+      status.style.display = "none";
     }
   } catch (error) {
     status.querySelector("strong").textContent =
