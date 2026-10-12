@@ -163,12 +163,25 @@ button {
   inset: 0 auto 0 50%;
   z-index: -1;
   width: 100vw;
-  background: #886627;
+  background: #9a6f14;
   content: "";
   transform: translateX(-50%);
 }
 
+.hero::after {
+  position: absolute;
+  inset: 18px auto 18px 50%;
+  z-index: -1;
+  width: min(calc(100vw - 28px), 1120px);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 26px;
+  content: "";
+  pointer-events: none;
+  transform: translateX(-50%);
+}
+
 .hero-profile {
+  position: relative;
   width: 104px;
   height: 104px;
   margin: 0 auto 24px;
@@ -176,7 +189,25 @@ button {
   border: 2px solid rgba(255, 255, 255, 0.92);
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.2);
-  box-shadow: 0 12px 30px rgba(69, 45, 4, 0.2);
+  box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.11), 0 12px 30px rgba(69, 45, 4, 0.16);
+}
+
+.hero-profile::before,
+.hero-profile::after {
+  position: absolute;
+  top: 50%;
+  width: 50px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.38);
+  content: "";
+}
+
+.hero-profile::before {
+  right: calc(100% + 14px);
+}
+
+.hero-profile::after {
+  left: calc(100% + 14px);
 }
 
 .hero-profile img {
@@ -898,7 +929,19 @@ footer nav a {
     min-height: 72px;
   }
 
-  .hero-profile {
+  .hero::after {
+  position: absolute;
+  inset: 18px auto 18px 50%;
+  z-index: -1;
+  width: min(calc(100vw - 28px), 1120px);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 26px;
+  content: "";
+  pointer-events: none;
+  transform: translateX(-50%);
+}
+
+.hero-profile {
     width: 112px;
     height: 112px;
   }
