@@ -79,7 +79,14 @@
         <button class="filter-button" type="button" data-category="Design de Sobrancelhas" aria-pressed="false">Design de Sobrancelhas</button>
       </div>
 
-      <div class="gallery" id="gallery" aria-live="polite"></div>
+      <div class="gallery is-condensed" id="gallery" aria-live="polite"></div>
+
+      <div class="gallery-actions">
+        <button class="gallery-toggle" id="galleryToggle" type="button" aria-expanded="false" aria-controls="gallery" hidden>
+          <span id="galleryToggleLabel">Ver mais trabalhos</span>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m7 10 5 5 5-5"/></svg>
+        </button>
+      </div>
 
       <div class="portfolio-cta">
         <p>Gostou do que viu? O próximo resultado especial pode ser o seu! <span aria-hidden="true">💖</span></p>
@@ -124,6 +131,6 @@
   </div>
 
   <script src="./trabalhos/trabalhos.js"></script>
-  <script src="./script.js?v=20261012-media-1"></script>
+  <script src="./script.js?v=20261012-portfolio-1"></script>
 </body>
 </html>

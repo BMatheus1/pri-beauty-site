@@ -6,8 +6,13 @@ const lightboxImage = document.querySelector("#lightboxImage");
 const lightboxVideo = document.querySelector("#lightboxVideo");
 const lightboxCategory = document.querySelector("#lightboxCategory");
 const lightboxDescription = document.querySelector("#lightboxDescription");
+const galleryToggle = document.querySelector("#galleryToggle");
+const galleryToggleLabel = document.querySelector("#galleryToggleLabel");
+const collapsedWorkCount = 2;
 
 let visibleWorks = [...works];
+let activeCategory = "Todos";
+let galleryExpanded = false;
 let activeIndex = 0;
 let touchStartX = 0;
 let lastFocused = null;
@@ -43,15 +48,36 @@ function makeCard(work, index) {
   return button;
 }
 
-function renderGallery(category = "Todos") {
-  visibleWorks =
+function updateGalleryToggle(totalWorks) {
+  const hiddenCount = Math.max(0, totalWorks - collapsedWorkCount);
+  const canExpand = hiddenCount > 0;
+
+  galleryToggle.hidden = !canExpand;
+  galleryToggle.setAttribute("aria-expanded", String(galleryExpanded));
+  galleryToggleLabel.textContent = galleryExpanded
+    ? "Mostrar menos"
+    : `Ver mais ${hiddenCount} ${hiddenCount === 1 ? "trabalho" : "trabalhos"}`;
+}
+
+function renderGallery(category = activeCategory) {
+  activeCategory = category;
+  const filteredWorks =
     category === "Todos"
       ? [...works]
       : works.filter((work) => workCategories(work).includes(category));
 
-  gallery.replaceChildren();
+  visibleWorks = galleryExpanded
+    ? filteredWorks
+    : filteredWorks.slice(0, collapsedWorkCount);
 
-  if (!visibleWorks.length) {
+  gallery.replaceChildren();
+  gallery.classList.toggle(
+    "is-condensed",
+    !galleryExpanded || filteredWorks.length <= collapsedWorkCount
+  );
+  updateGalleryToggle(filteredWorks.length);
+
+  if (!filteredWorks.length) {
     const empty = document.createElement("div");
     empty.className = "empty-gallery";
     empty.innerHTML =
@@ -63,7 +89,9 @@ function renderGallery(category = "Todos") {
   }
 
   visibleWorks.forEach((work, index) => {
-    gallery.append(makeCard(work, index));
+    const card = makeCard(work, index);
+    card.style.setProperty("--gallery-index", index);
+    gallery.append(card);
   });
 }
 
@@ -74,8 +102,14 @@ filterButtons.forEach((button) => {
       item.classList.toggle("active", selected);
       item.setAttribute("aria-pressed", String(selected));
     });
+    galleryExpanded = false;
     renderGallery(button.dataset.category);
   });
+});
+
+galleryToggle.addEventListener("click", () => {
+  galleryExpanded = !galleryExpanded;
+  renderGallery(activeCategory);
 });
 
 function resetVideo() {
