@@ -16,7 +16,7 @@ let retryButton = null;
 
 async function fetchPart(url, attempt = 1) {
   try {
-    const response = await fetch(url, { cache: "no-store" });
+    const response = await fetch(url);
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     return await response.arrayBuffer();
   } catch (error) {
