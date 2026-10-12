@@ -1,1 +1,70 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Catálogo | Pri Beauty</title><style>html,body{height:100%;margin:0;background:#2d2924;font-family:Arial,sans-serif}.top{height:62px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;color:#fff;background:#2d2924}.brand{font-family:Georgia,serif;font-size:20px;color:#ead6ae}.actions{display:flex;gap:10px}.actions a{color:#fff;border:1px solid #b28a45;border-radius:999px;padding:9px 15px;text-decoration:none;font-size:12px}.status{position:fixed;inset:62px 0 0;display:grid;place-items:center;color:#ead6ae;text-align:center;padding:25px}.status strong{display:block;font-family:Georgia,serif;font-size:28px;font-weight:400;margin-bottom:10px}.status p{color:#c8c0b4}.progress{width:min(360px,80vw);height:3px;background:#5a5146;margin:22px auto;overflow:hidden;border-radius:5px}.progress i{display:block;height:100%;width:0;background:#c9a55f;transition:width .2s}iframe{display:none;width:100%;height:calc(100% - 62px);border:0;background:#fff}@media(max-width:520px){.top{padding:0 12px}.brand{font-size:17px}.actions a{padding:8px 11px}}</style></head><body><header class="top"><span class="brand">Pri Beauty • Catálogo</span><div class="actions"><a id="download" href="#" download="catalogo-pri-beauty.pdf" hidden>Baixar PDF</a><a href="../">Voltar ao site</a></div></header><div class="status" id="status"><div><strong>Preparando seu catálogo…</strong><p id="message">Carregando o arquivo original com segurança.</p><div class="progress"><i id="progress"></i></div></div></div><iframe id="viewer" title="Catálogo Pri Beauty"></iframe><script src="./viewer.js?v=20261012-2"></script></body></html>
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <title>Catálogo | Pri Beauty</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Ccircle cx=%2732%27 cy=%2732%27 r=%2730%27 fill=%27%232d2924%27/%3E%3Ctext x=%2732%27 y=%2743%27 text-anchor=%27middle%27 font-size=%2733%27 fill=%27%23ead6ae%27 font-family=%27Georgia%27%3EP%3C/text%3E%3C/svg%3E">
+  <style>
+    :root{--white:#fff;--cream:#f7f1e7;--gold:#c6a667;--gold-dark:#b89146;--ink:#282828;--line:#e6d8bd}
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth;background:var(--cream)}
+    body{margin:0;color:var(--ink);background:var(--cream);font-family:Arial,sans-serif}
+    button,a{font:inherit}
+    .top{position:sticky;top:0;z-index:10;min-height:64px;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:10px max(16px,calc((100vw - 1120px)/2));border-bottom:1px solid var(--line);background:rgba(255,255,255,.96)}
+    .brand{color:var(--ink);font:700 clamp(18px,2vw,22px) Georgia,serif;white-space:nowrap}
+    .actions{display:flex;align-items:center;gap:8px}
+    .action{min-height:42px;display:inline-flex;align-items:center;justify-content:center;padding:9px 15px;border:1px solid var(--gold-dark);border-radius:999px;color:var(--ink);background:var(--white);text-decoration:none;font-size:12px;font-weight:700;cursor:pointer}
+    .action-primary{color:var(--white);background:var(--ink);border-color:var(--ink)}
+    .action:disabled{cursor:wait;opacity:.72}
+    .load-status{position:fixed;top:74px;left:50%;z-index:12;width:min(420px,calc(100% - 32px));padding:12px 16px;border:1px solid var(--line);border-radius:12px;color:var(--ink);background:var(--white);box-shadow:0 12px 35px rgba(40,40,40,.14);text-align:center;font-size:13px;transform:translateX(-50%)}
+    .load-status[hidden]{display:none}
+    .progress{height:3px;margin-top:9px;overflow:hidden;border-radius:5px;background:#eee6d7}
+    .progress i{display:block;width:0;height:100%;background:var(--gold-dark);transition:width .2s}
+    main{width:min(100% - 24px,920px);margin:0 auto;padding:34px 0 64px}
+    .intro{text-align:center;margin:0 auto 26px}
+    .intro span{color:#795f2e;font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+    .intro h1{margin:9px 0 8px;font:400 clamp(31px,5vw,52px)/1.08 Georgia,serif}
+    .intro p{max-width:610px;margin:0 auto;color:#655e55;font-size:14px;line-height:1.7}
+    .pages{display:grid;gap:22px}
+    .page{margin:0;overflow:hidden;border:1px solid var(--line);border-radius:12px;background:var(--white);box-shadow:0 12px 35px rgba(40,40,40,.07)}
+    .page img{display:block;width:100%;height:auto;background:var(--white)}
+    .page figcaption{padding:8px 12px;border-top:1px solid #eee6d7;color:#796e60;text-align:center;font-size:11px}
+    @media(max-width:620px){.top{align-items:stretch;flex-direction:column}.brand{text-align:center}.actions{display:grid;grid-template-columns:1fr 1fr}.action{width:100%}.load-status{top:116px}main{padding-top:24px}.intro p{font-size:13px}.pages{gap:14px}.page{border-radius:8px}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.progress i{transition:none}}
+  </style>
+</head>
+<body>
+  <header class="top">
+    <span class="brand">Pri Beauty • Catálogo</span>
+    <div class="actions">
+      <button class="action action-primary" id="openPdf" type="button">Abrir PDF original</button>
+      <a class="action" href="../">Voltar ao site</a>
+    </div>
+  </header>
+  <div class="load-status" id="loadStatus" role="status" aria-live="polite" hidden>
+    <span id="loadMessage">Preparando o PDF original…</span>
+    <div class="progress"><i id="progress"></i></div>
+  </div>
+  <main>
+    <div class="intro">
+      <span>Serviços e valores</span>
+      <h1>Catálogo Pri Beauty</h1>
+      <p>Veja todas as páginas abaixo. Se preferir usar o leitor do seu aparelho, toque em “Abrir PDF original”.</p>
+    </div>
+    <section class="pages" aria-label="Páginas do catálogo">
+      <figure class="page"><img src="./preview/pagina-1.jpg" width="1200" height="1697" alt="Catálogo Pri Beauty, página 1" fetchpriority="high" decoding="async"><figcaption>Página 1 de 9</figcaption></figure>
+      <figure class="page"><img src="./preview/pagina-2.jpg" width="1200" height="1697" alt="Catálogo Pri Beauty, página 2" loading="lazy" decoding="async"><figcaption>Página 2 de 9</figcaption></figure>
+      <figure class="page"><img src="./preview/pagina-3.jpg" width="1200" height="1697" alt="Catálogo Pri Beauty, página 3" loading="lazy" decoding="async"><figcaption>Página 3 de 9</figcaption></figure>
+      <figure class="page"><img src="./preview/pagina-4.jpg" width="1200" height="1697" alt="Catálogo Pri Beauty, página 4" loading="lazy" decoding="async"><figcaption>Página 4 de 9</figcaption></figure>
+      <figure class="page"><img src="./preview/pagina-5.jpg" width="1200" height="1697" alt="Catálogo Pri Beauty, página 5" loading="lazy" decoding="async"><figcaption>Página 5 de 9</figcaption></figure>
+      <figure class="page"><img src="./preview/pagina-6.jpg" width="1200" height="1697" alt="Catálogo Pri Beauty, página 6" loading="lazy" decoding="async"><figcaption>Página 6 de 9</figcaption></figure>
+      <figure class="page"><img src="./preview/pagina-7.jpg" width="1200" height="1697" alt="Catálogo Pri Beauty, página 7" loading="lazy" decoding="async"><figcaption>Página 7 de 9</figcaption></figure>
+      <figure class="page"><img src="./preview/pagina-8.jpg" width="1200" height="1697" alt="Catálogo Pri Beauty, página 8" loading="lazy" decoding="async"><figcaption>Página 8 de 9</figcaption></figure>
+      <figure class="page"><img src="./preview/pagina-9.jpg" width="1200" height="1697" alt="Catálogo Pri Beauty, página 9" loading="lazy" decoding="async"><figcaption>Página 9 de 9</figcaption></figure>
+    </section>
+  </main>
+  <script src="./viewer.js?v=20261012-3"></script>
+</body>
+</html>

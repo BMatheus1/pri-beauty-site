@@ -1,49 +1,74 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#fbfaf7">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
   <meta name="description" content="Pri Beauty: estética e cuidados que valorizam sua beleza.">
   <title>Pri Beauty | Estética e beleza</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Italiana&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./styles.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2732%27 fill=%27%23fff%27/%3E%3Ccircle cx=%2732%27 cy=%2732%27 r=%2728%27 fill=%27none%27 stroke=%27%23b89146%27 stroke-width=%273%27/%3E%3Ctext x=%2732%27 y=%2742%27 text-anchor=%27middle%27 font-size=%2732%27 fill=%27%23b89146%27 font-family=%27Georgia%27%3EP%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./styles.css?v=20261012-redesign">
 </head>
 <body>
   <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
+
   <header class="site-header">
-    <a class="brand" href="#inicio" aria-label="Pri Beauty, início"><span class="brand-mark">P</span><span>Pri Beauty</span></a>
-    <nav aria-label="Navegação principal"><a href="#procedimentos">Procedimentos</a><a href="#trabalhos">Trabalhos</a><a href="#sobre">Quem sou eu</a><a class="nav-catalog" href="./catalogo/" target="_blank" rel="noopener">Catálogo</a></nav>
-    <a class="header-cta" href="https://wa.me/5511932984787?text=Ol%C3%A1%2C%20Pri!%20Vi%20seus%20trabalhos%20no%20site%20e%20gostaria%20de%20agendar%20um%20procedimento." target="_blank" rel="noopener">Agendar</a>
+    <div class="header-inner">
+      <a class="brand" href="#inicio" aria-label="Pri Beauty, início">
+        <span class="brand-mark" aria-hidden="true">P</span>
+        <span>Pri Beauty</span>
+      </a>
+      <a class="header-action" href="https://wa.me/5511932984787?text=Ol%C3%A1%2C%20Pri!%20Vi%20seus%20trabalhos%20no%20site%20e%20gostaria%20de%20agendar%20um%20procedimento." target="_blank" rel="noopener">Agendar</a>
+    </div>
   </header>
+
   <main id="conteudo">
     <section class="hero" id="inicio" aria-labelledby="hero-title">
-      <div class="hero-copy reveal">
-        <span class="eyebrow">Cuidado que revela sua essência</span>
-        <h1 id="hero-title">Beleza natural,<br><em>detalhes únicos.</em></h1>
-        <p>Um espaço dedicado a valorizar quem você é, com atenção, delicadeza e procedimentos pensados para você.</p>
-        <div class="hero-actions">
-          <a class="button button-gold" href="https://wa.me/5511932984787?text=Ol%C3%A1%2C%20Pri!%20Vi%20seus%20trabalhos%20no%20site%20e%20gostaria%20de%20agendar%20um%20procedimento." target="_blank" rel="noopener">Quero agendar</a>
-          <a class="text-link" href="./catalogo/" target="_blank" rel="noopener">Ver catálogo completo <span aria-hidden="true">↗</span></a>
-        </div>
+      <div class="hero-profile">
+        <img src="./images/quem-sou-eu.webp" width="1072" height="1600" alt="Priscila, profissional da Pri Beauty" decoding="async" fetchpriority="high">
       </div>
-      <div class="hero-visual reveal" aria-hidden="true"><div class="hero-orbit"></div><div class="hero-monogram">PB</div><span class="hero-note">estética &amp; cuidado</span></div>
+      <span class="eyebrow">Cuidado que revela sua essência</span>
+      <h1 id="hero-title">Beleza natural,<br><em>detalhes únicos.</em></h1>
+      <p>Um espaço dedicado a valorizar quem você é, com atenção, delicadeza e procedimentos pensados para você.</p>
+
+      <nav class="quick-nav" aria-label="Acessos principais">
+        <a class="quick-link" href="#procedimentos"><span class="quick-icon" aria-hidden="true">✦</span><span>Nossos Procedimentos</span><span class="quick-arrow" aria-hidden="true">↓</span></a>
+        <a class="quick-link" href="#trabalhos"><span class="quick-icon" aria-hidden="true">▦</span><span>Confira alguns dos meus trabalhos</span><span class="quick-arrow" aria-hidden="true">↓</span></a>
+        <a class="quick-link" href="#sobre"><span class="quick-icon" aria-hidden="true">♡</span><span>Sobre a Pri</span><span class="quick-arrow" aria-hidden="true">↓</span></a>
+        <a class="quick-link" href="./catalogo/" target="_blank" rel="noopener"><span class="quick-icon" aria-hidden="true">▤</span><span>Catálogo completo</span><span class="quick-arrow" aria-hidden="true">↗</span></a>
+        <a class="quick-link quick-link-primary" href="https://wa.me/5511932984787?text=Ol%C3%A1%2C%20Pri!%20Vi%20seus%20trabalhos%20no%20site%20e%20gostaria%20de%20agendar%20um%20procedimento." target="_blank" rel="noopener"><span class="quick-icon" aria-hidden="true">◉</span><span>Agendar pelo WhatsApp</span><span class="quick-arrow" aria-hidden="true">↗</span></a>
+      </nav>
     </section>
 
     <section class="procedures section" id="procedimentos" aria-labelledby="procedures-title">
-      <div class="section-heading reveal"><span class="eyebrow">Nossos Procedimentos</span><h2 id="procedures-title">Cuidado especializado<br>para cada momento</h2><p>Encontre o procedimento que combina com você e consulte todos os detalhes no catálogo.</p></div>
-      <div class="procedure-grid reveal">
-        <article><span>01</span><h3>Drenagem Linfática</h3></article><article><span>02</span><h3>Limpeza de Pele</h3></article>
-        <article><span>03</span><h3>Extensão de Cílios</h3></article><article><span>04</span><h3>Spa Labial</h3></article>
-        <article><span>05</span><h3>Design de Sobrancelhas</h3></article>
-        <a class="catalog-card" href="./catalogo/" target="_blank" rel="noopener"><span>Catálogo</span><h3>Conheça todos os procedimentos</h3><span class="catalog-arrow" aria-hidden="true">↗</span></a>
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">Nossos Procedimentos</span>
+          <h2 id="procedures-title">Cuidado especializado<br>para cada momento</h2>
+        </div>
+        <p>Encontre o procedimento que combina com você e consulte todos os detalhes no catálogo.</p>
+      </div>
+
+      <div class="procedure-grid">
+        <article class="procedure-card"><span class="procedure-number">01</span><h3>Drenagem Linfática</h3><a href="https://wa.me/5511932984787?text=Ol%C3%A1%2C%20Pri!%20Vi%20seus%20trabalhos%20no%20site%20e%20gostaria%20de%20agendar%20um%20procedimento." target="_blank" rel="noopener">Agendar <span aria-hidden="true">↗</span></a></article>
+        <article class="procedure-card"><span class="procedure-number">02</span><h3>Limpeza de Pele</h3><a href="https://wa.me/5511932984787?text=Ol%C3%A1%2C%20Pri!%20Vi%20seus%20trabalhos%20no%20site%20e%20gostaria%20de%20agendar%20um%20procedimento." target="_blank" rel="noopener">Agendar <span aria-hidden="true">↗</span></a></article>
+        <article class="procedure-card"><span class="procedure-number">03</span><h3>Extensão de Cílios</h3><a href="https://wa.me/5511932984787?text=Ol%C3%A1%2C%20Pri!%20Vi%20seus%20trabalhos%20no%20site%20e%20gostaria%20de%20agendar%20um%20procedimento." target="_blank" rel="noopener">Agendar <span aria-hidden="true">↗</span></a></article>
+        <article class="procedure-card"><span class="procedure-number">04</span><h3>Spa Labial</h3><a href="https://wa.me/5511932984787?text=Ol%C3%A1%2C%20Pri!%20Vi%20seus%20trabalhos%20no%20site%20e%20gostaria%20de%20agendar%20um%20procedimento." target="_blank" rel="noopener">Agendar <span aria-hidden="true">↗</span></a></article>
+        <article class="procedure-card"><span class="procedure-number">05</span><h3>Design de Sobrancelhas</h3><a href="https://wa.me/5511932984787?text=Ol%C3%A1%2C%20Pri!%20Vi%20seus%20trabalhos%20no%20site%20e%20gostaria%20de%20agendar%20um%20procedimento." target="_blank" rel="noopener">Agendar <span aria-hidden="true">↗</span></a></article>
+        <a class="catalog-card" href="./catalogo/" target="_blank" rel="noopener"><span class="procedure-number">Catálogo</span><h3>Conheça todos os procedimentos</h3><span>Ver catálogo completo <span aria-hidden="true">↗</span></span></a>
       </div>
     </section>
 
     <section class="portfolio section" id="trabalhos" aria-labelledby="portfolio-title">
-      <div class="portfolio-glow" aria-hidden="true"></div>
-      <div class="section-heading centered reveal"><span class="eyebrow">Portfólio</span><h2 id="portfolio-title">Confira alguns dos meus trabalhos <span aria-hidden="true">✨</span></h2><p>Cada detalhe é pensado com carinho para valorizar a sua beleza e realçar o que você tem de mais especial.</p></div>
-      <div class="filters reveal" role="group" aria-label="Filtrar trabalhos por procedimento">
+      <div class="section-heading section-heading-centered">
+        <div>
+          <span class="eyebrow">Portfólio</span>
+          <h2 id="portfolio-title">Confira alguns dos meus trabalhos <span aria-hidden="true">✨</span></h2>
+        </div>
+        <p>Cada detalhe é pensado com carinho para valorizar a sua beleza e realçar o que você tem de mais especial.</p>
+      </div>
+
+      <div class="filters" role="group" aria-label="Filtrar trabalhos por procedimento">
         <button class="filter-button active" type="button" data-category="Todos" aria-pressed="true">Todos</button>
         <button class="filter-button" type="button" data-category="Drenagem Linfática" aria-pressed="false">Drenagem Linfática</button>
         <button class="filter-button" type="button" data-category="Limpeza de Pele" aria-pressed="false">Limpeza de Pele</button>
@@ -51,13 +76,21 @@
         <button class="filter-button" type="button" data-category="Spa Labial" aria-pressed="false">Spa Labial</button>
         <button class="filter-button" type="button" data-category="Design de Sobrancelhas" aria-pressed="false">Design de Sobrancelhas</button>
       </div>
-      <div class="gallery-wrap reveal"><div class="gallery" id="gallery" aria-live="polite"></div><div class="carousel-indicators" id="carouselIndicators" aria-label="Navegação da galeria"></div></div>
-      <div class="portfolio-cta reveal"><p>Gostou do que viu? O próximo resultado especial pode ser o seu! <span aria-hidden="true">💖</span></p><a class="button button-gold" href="https://wa.me/5511932984787?text=Ol%C3%A1%2C%20Pri!%20Vi%20seus%20trabalhos%20no%20site%20e%20gostaria%20de%20agendar%20um%20procedimento." target="_blank" rel="noopener">Quero agendar meu horário</a></div>
+
+      <div class="gallery" id="gallery" aria-live="polite"></div>
+
+      <div class="portfolio-cta">
+        <p>Gostou do que viu? O próximo resultado especial pode ser o seu! <span aria-hidden="true">💖</span></p>
+        <a class="button button-primary" href="https://wa.me/5511932984787?text=Ol%C3%A1%2C%20Pri!%20Vi%20seus%20trabalhos%20no%20site%20e%20gostaria%20de%20agendar%20um%20procedimento." target="_blank" rel="noopener">Quero agendar meu horário</a>
+      </div>
     </section>
 
     <section class="about section" id="sobre" aria-labelledby="about-title">
-      <div class="about-photo reveal"><img src="./images/quem-sou-eu.webp" alt="Priscila, profissional da Pri Beauty" loading="lazy" decoding="async"><span aria-hidden="true">Cuidado • Técnica • Delicadeza</span></div>
-      <div class="about-copy reveal">
+      <figure class="about-photo">
+        <img src="./images/quem-sou-eu.webp" width="1072" height="1600" alt="Priscila, profissional da Pri Beauty" loading="lazy" decoding="async">
+        <figcaption>Cuidado • Técnica • Delicadeza</figcaption>
+      </figure>
+      <div class="about-copy">
         <span class="eyebrow">Minha história</span>
         <h2 id="about-title">Quem sou eu? <span aria-hidden="true">🥰</span></h2>
         <div class="bio">
@@ -72,13 +105,23 @@
       </div>
     </section>
   </main>
-  <footer><a class="brand" href="#inicio"><span class="brand-mark">P</span><span>Pri Beauty</span></a><p>Estética, cuidado e beleza em cada detalhe.</p><div><a href="./catalogo/" target="_blank" rel="noopener">Catálogo</a><a href="https://wa.me/5511932984787" target="_blank" rel="noopener">WhatsApp</a></div></footer>
+
+  <footer>
+    <a class="brand" href="#inicio"><span class="brand-mark" aria-hidden="true">P</span><span>Pri Beauty</span></a>
+    <p>Estética, cuidado e beleza em cada detalhe.</p>
+    <nav aria-label="Links do rodapé"><a href="./catalogo/" target="_blank" rel="noopener">Catálogo</a><a href="https://wa.me/5511932984787" target="_blank" rel="noopener">WhatsApp</a></nav>
+  </footer>
+
+  <a class="floating-whatsapp" href="https://wa.me/5511932984787?text=Ol%C3%A1%2C%20Pri!%20Vi%20seus%20trabalhos%20no%20site%20e%20gostaria%20de%20agendar%20um%20procedimento." target="_blank" rel="noopener" aria-label="Agendar pelo WhatsApp"><span aria-hidden="true">◉</span><span>Agendar</span></a>
 
   <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Visualização ampliada do trabalho" hidden>
-    <button class="lightbox-close" type="button" aria-label="Fechar imagem">×</button><button class="lightbox-nav lightbox-prev" type="button" aria-label="Imagem anterior">←</button>
+    <button class="lightbox-close" type="button" aria-label="Fechar imagem">×</button>
+    <button class="lightbox-nav lightbox-prev" type="button" aria-label="Imagem anterior">←</button>
     <figure><img id="lightboxImage" src="" alt=""><figcaption><span id="lightboxCategory"></span><strong id="lightboxDescription"></strong></figcaption></figure>
     <button class="lightbox-nav lightbox-next" type="button" aria-label="Próxima imagem">→</button>
   </div>
-  <script src="./trabalhos/trabalhos.js"></script><script src="./script.js"></script>
+
+  <script src="./trabalhos/trabalhos.js"></script>
+  <script src="./script.js?v=20261012-redesign"></script>
 </body>
 </html>
