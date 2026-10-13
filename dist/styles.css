@@ -191,7 +191,7 @@ button {
   width: 125vw;
   max-width: none;
   height: auto;
-  opacity: 0.13;
+  opacity: 0.17;
   pointer-events: none;
   transform: translateX(-50%);
   user-select: none;
@@ -1095,7 +1095,7 @@ footer nav a {
   .hero-watermark {
     top: 120px;
     width: min(66vw, 880px);
-    opacity: 0.12;
+    opacity: 0.16;
   }
 
   .hero-profile {
