@@ -285,18 +285,14 @@ h2 {
   line-height: 1.1;
 }
 
-.hero-name > span {
-  font-size: 0.82em;
-  font-style: normal;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-}
-
+.hero-name > span,
 .hero-name em {
   color: inherit;
   font-size: 1em;
+  font-style: normal;
   font-weight: 400;
-  letter-spacing: 0.005em;
+  letter-spacing: 0.06em;
+  text-transform: none;
 }
 
 .hero-tagline {
