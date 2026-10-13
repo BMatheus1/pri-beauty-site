@@ -185,10 +185,10 @@ button {
 
 .hero-watermark {
   position: absolute;
-  top: 126px;
+  top: 116px;
   left: 50%;
   z-index: 0;
-  width: 145vw;
+  width: 125vw;
   max-width: none;
   height: auto;
   opacity: 0.13;
@@ -1093,8 +1093,8 @@ footer nav a {
   }
 
   .hero-watermark {
-    top: 136px;
-    width: min(78vw, 1040px);
+    top: 120px;
+    width: min(66vw, 880px);
     opacity: 0.12;
   }
 
