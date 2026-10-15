@@ -212,7 +212,8 @@ button {
 }
 
 .hero-logo {
-  width: clamp(220px, 30vw, 290px);
+  width: clamp(180px, 25vw, 220px);
+  max-width: 100%;
   height: auto;
   opacity: 0.96;
   filter: drop-shadow(0 4px 12px rgba(69, 45, 4, 0.12));
@@ -1048,7 +1049,7 @@ footer nav a {
 
 @media (max-width: 539px) {
   .hero-intro {
-    grid-template-columns: 60px minmax(0, 1fr) 104px;
+    grid-template-columns: 58px minmax(0, 1fr) 110px;
     gap: 8px;
     margin-bottom: 24px;
     text-align: left;
@@ -1064,13 +1065,13 @@ footer nav a {
   }
 
   .hero-profile {
-    width: 60px;
-    height: 60px;
+    width: 58px;
+    height: 58px;
     padding: 3px;
   }
 
   .hero-logo {
-    width: 104px;
+    width: 110px;
   }
 
   .hero-name {
@@ -1171,6 +1172,10 @@ footer nav a {
   .hero-profile {
     width: 108px;
     height: 108px;
+  }
+
+  .hero-logo {
+    width: clamp(230px, 30vw, 330px);
   }
 
   .section-heading {
@@ -1291,7 +1296,7 @@ footer nav a {
   }
 
   .hero-intro {
-    grid-template-columns: 48px minmax(0, 1fr) 92px;
+    grid-template-columns: 48px minmax(0, 1fr) 100px;
     gap: 4px;
   }
 
@@ -1301,7 +1306,7 @@ footer nav a {
   }
 
   .hero-logo {
-    width: 92px;
+    width: 100px;
   }
 
   .hero-name {
