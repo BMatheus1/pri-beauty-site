@@ -206,7 +206,7 @@ button {
   grid-template-columns: auto minmax(0, 1fr) auto;
   align-items: center;
   gap: clamp(8px, 1.5vw, 16px);
-  max-width: 960px;
+  max-width: 1000px;
   margin: 0 auto 26px;
   text-align: left;
 }
@@ -1050,7 +1050,7 @@ footer nav a {
 
 @media (max-width: 539px) {
   .hero-intro {
-    grid-template-columns: 56px minmax(0, 1fr) 116px;
+    grid-template-columns: 64px minmax(0, 1fr) 124px;
     gap: 6px;
     margin-bottom: 24px;
     text-align: left;
@@ -1066,13 +1066,13 @@ footer nav a {
   }
 
   .hero-profile {
-    width: 56px;
-    height: 56px;
+    width: 64px;
+    height: 64px;
     padding: 3px;
   }
 
   .hero-logo {
-    width: 116px;
+    width: 124px;
     transform: translateX(-4px);
   }
 
@@ -1164,7 +1164,7 @@ footer nav a {
   }
 
   .hero {
-    width: min(100% - 48px, 960px);
+    width: min(100% - 48px, 1000px);
   }
 
   .hero::before {
@@ -1172,13 +1172,17 @@ footer nav a {
   }
 
   .hero-profile {
-    width: 108px;
-    height: 108px;
+    width: 128px;
+    height: 128px;
   }
 
   .hero-logo {
-    width: clamp(270px, 33vw, 370px);
-    transform: translateX(-18px);
+    width: clamp(310px, 36vw, 410px);
+    transform: translateX(-22px);
+  }
+
+  .hero-copy {
+    transform: translateX(18px);
   }
 
   .section-heading {
@@ -1299,17 +1303,17 @@ footer nav a {
   }
 
   .hero-intro {
-    grid-template-columns: 46px minmax(0, 1fr) 104px;
+    grid-template-columns: 52px minmax(0, 1fr) 108px;
     gap: 4px;
   }
 
   .hero-profile {
-    width: 46px;
-    height: 46px;
+    width: 52px;
+    height: 52px;
   }
 
   .hero-logo {
-    width: 104px;
+    width: 108px;
     transform: translateX(-2px);
   }
 
