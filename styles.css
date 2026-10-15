@@ -196,37 +196,37 @@ button {
   display: none;
 }
 
-.hero > *:not(.hero-watermark) {
+.hero > * {
   position: relative;
   z-index: 1;
 }
 
 .hero-intro {
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-columns: minmax(160px, 210px) minmax(0, 1fr);
   align-items: center;
   gap: clamp(18px, 4vw, 34px);
-  max-width: 680px;
+  max-width: 720px;
   margin: 0 auto 26px;
   text-align: left;
 }
 
-.hero-copy {
+.hero-visual {
+  display: grid;
+  justify-items: center;
+  gap: 8px;
   min-width: 0;
 }
 
-.hero-watermark {
-  position: absolute;
-  top: 116px;
-  left: 50%;
-  z-index: 0;
-  width: 125vw;
-  max-width: none;
+.hero-logo {
+  width: min(100%, 190px);
   height: auto;
-  opacity: 0.21;
-  pointer-events: none;
-  transform: translateX(-50%);
-  user-select: none;
+  opacity: 0.78;
+  filter: drop-shadow(0 4px 12px rgba(69, 45, 4, 0.12));
+}
+
+.hero-copy {
+  min-width: 0;
 }
 
 .hero-profile {
@@ -1089,11 +1089,6 @@ footer nav a {
     display: block;
   }
 
-  .hero-watermark {
-    width: 100vw;
-    max-width: 100vw;
-  }
-
   .quick-link {
     width: 100%;
     grid-template-columns: 36px minmax(0, 1fr) 28px;
@@ -1170,12 +1165,6 @@ footer nav a {
 
   .hero::before {
     background-image: url("./images/hero-gold-desktop.webp");
-  }
-
-  .hero-watermark {
-    top: 120px;
-    width: min(66vw, 880px);
-    opacity: 0.20;
   }
 
   .hero-profile {
