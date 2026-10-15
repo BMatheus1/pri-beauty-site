@@ -205,18 +205,19 @@ button {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr) auto;
   align-items: center;
-  gap: clamp(16px, 3vw, 28px);
-  max-width: 900px;
+  gap: clamp(8px, 1.5vw, 16px);
+  max-width: 960px;
   margin: 0 auto 26px;
   text-align: left;
 }
 
 .hero-logo {
-  width: clamp(180px, 25vw, 220px);
+  width: clamp(210px, 28vw, 250px);
   max-width: 100%;
   height: auto;
   opacity: 0.96;
   filter: drop-shadow(0 4px 12px rgba(69, 45, 4, 0.12));
+  transform: translateX(-10px);
 }
 
 .hero-copy {
@@ -1049,8 +1050,8 @@ footer nav a {
 
 @media (max-width: 539px) {
   .hero-intro {
-    grid-template-columns: 58px minmax(0, 1fr) 110px;
-    gap: 8px;
+    grid-template-columns: 56px minmax(0, 1fr) 116px;
+    gap: 6px;
     margin-bottom: 24px;
     text-align: left;
   }
@@ -1065,13 +1066,14 @@ footer nav a {
   }
 
   .hero-profile {
-    width: 58px;
-    height: 58px;
+    width: 56px;
+    height: 56px;
     padding: 3px;
   }
 
   .hero-logo {
-    width: 110px;
+    width: 116px;
+    transform: translateX(-4px);
   }
 
   .hero-name {
@@ -1162,7 +1164,7 @@ footer nav a {
   }
 
   .hero {
-    width: min(100% - 48px, 900px);
+    width: min(100% - 48px, 960px);
   }
 
   .hero::before {
@@ -1175,7 +1177,8 @@ footer nav a {
   }
 
   .hero-logo {
-    width: clamp(230px, 30vw, 330px);
+    width: clamp(270px, 33vw, 370px);
+    transform: translateX(-18px);
   }
 
   .section-heading {
@@ -1296,17 +1299,18 @@ footer nav a {
   }
 
   .hero-intro {
-    grid-template-columns: 48px minmax(0, 1fr) 100px;
+    grid-template-columns: 46px minmax(0, 1fr) 104px;
     gap: 4px;
   }
 
   .hero-profile {
-    width: 48px;
-    height: 48px;
+    width: 46px;
+    height: 46px;
   }
 
   .hero-logo {
-    width: 100px;
+    width: 104px;
+    transform: translateX(-2px);
   }
 
   .hero-name {
