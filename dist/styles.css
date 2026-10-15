@@ -212,9 +212,9 @@ button {
 }
 
 .hero-logo {
-  width: clamp(190px, 25vw, 230px);
+  width: clamp(220px, 30vw, 290px);
   height: auto;
-  opacity: 0.92;
+  opacity: 0.96;
   filter: drop-shadow(0 4px 12px rgba(69, 45, 4, 0.12));
 }
 
@@ -1048,7 +1048,7 @@ footer nav a {
 
 @media (max-width: 539px) {
   .hero-intro {
-    grid-template-columns: 64px minmax(0, 1fr) 96px;
+    grid-template-columns: 60px minmax(0, 1fr) 104px;
     gap: 8px;
     margin-bottom: 24px;
     text-align: left;
@@ -1064,13 +1064,13 @@ footer nav a {
   }
 
   .hero-profile {
-    width: 64px;
-    height: 64px;
+    width: 60px;
+    height: 60px;
     padding: 3px;
   }
 
   .hero-logo {
-    width: 96px;
+    width: 104px;
   }
 
   .hero-name {
@@ -1291,17 +1291,17 @@ footer nav a {
   }
 
   .hero-intro {
-    grid-template-columns: 52px minmax(0, 1fr) 84px;
+    grid-template-columns: 48px minmax(0, 1fr) 92px;
     gap: 4px;
   }
 
   .hero-profile {
-    width: 52px;
-    height: 52px;
+    width: 48px;
+    height: 48px;
   }
 
   .hero-logo {
-    width: 84px;
+    width: 92px;
   }
 
   .hero-name {
