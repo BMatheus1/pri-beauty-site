@@ -1,3 +1,5 @@
 pri-beauty-site.zip
 .wrangler/
 node_modules/
+tmp/
+output/

@@ -1,0 +1,49 @@
+{
+  "source": "Catálogo (4).pdf, fornecido pela Pri Beauty",
+  "aiNotice": "Imagens ilustrativas geradas por inteligência artificial. Os resultados podem variar conforme as características individuais e a técnica aplicada.",
+  "about": [
+    "Meu propósito é transformar olhares, harmonizar expressões e elevar a autoestima através de técnicas seguras, especializadas e atualizadas em extensão de cílios, design de sobrancelhas e limpeza de pele.",
+    "Ofereço atendimento personalizado, com e sem henna, brow lamination e cuidados faciais, sempre com dedicação, profissionalismo e atenção a cada detalhe."
+  ],
+  "browIntro": [
+    "Suas sobrancelhas molduram o olhar e valorizam toda a expressão do rosto. Aqui, cada atendimento é personalizado, respeitando o formato natural, a simetria facial e o seu estilo.",
+    "Trabalhamos com técnicas modernas para alinhar, definir e realçar seus fios, proporcionando um resultado natural, harmonioso e duradouro.",
+    "Oferecemos desde a manutenção básica até procedimentos que entregam mais definição, preenchimento e efeito de volume, sempre com produtos de qualidade e aplicação cuidadosa.",
+    "Realce sua beleza com leveza, precisão e profissionalismo."
+  ],
+  "browInfo": [
+    "O Brow Lamination é um procedimento estético para alinhar e fixar os fios da sobrancelha na posição desejada, deixando-os mais uniformes, definidos e com aparência de maior volume.",
+    "Os fios são penteados e fixados para cima ou na direção ideal para o formato do rosto.",
+    "Corrige fios rebeldes, desalinhados ou que crescem em direções diferentes.",
+    "Dá efeito de sobrancelhas mais cheias, modernas e marcantes.",
+    "O resultado pode durar de 4 a 8 semanas, dependendo dos cuidados.",
+    "Muitas vezes é combinado com henna ou tintura."
+  ],
+  "facialIntro": [
+    "A limpeza de pele promove renovação, equilíbrio e saúde, removendo impurezas acumuladas e devolvendo viço e luminosidade ao rosto.",
+    "Cada atendimento é realizado com técnica, cuidado e produtos adequados ao seu tipo de pele, garantindo segurança e resultados visíveis.",
+    "Além disso, o procedimento pode ser complementado com o Spa Labial, um cuidado especial que hidrata profundamente os lábios, remove ressecamentos e pelinhas, devolvendo maciez, aspecto saudável e um toque mais uniforme e iluminado."
+  ],
+  "services": [
+    {"id":"fio-a-fio","category":"Extensão de cílios","name":"Fio a fio","price":110,"maintenance":90,"image":"cilios/fio-a-fio.webp","description":"Um olhar delicado e natural, com fios individuais bem separados.","alt":"Imagem ilustrativa de olhos com cílios individuais delicados e separados"},
+    {"id":"brasileiro","category":"Extensão de cílios","name":"Brasileiro","price":115,"maintenance":95,"image":"cilios/brasileiro.webp","description":"Volume leve e arejado, com fios em formato Y e acabamento delicado.","alt":"Imagem ilustrativa de extensão de cílios de volume brasileiro com fios em Y"},
+    {"id":"egipcio-4d","category":"Extensão de cílios","name":"Volume Egípcio 4D","price":120,"maintenance":95,"image":"cilios/egipcio-4d.webp","description":"Volume estruturado, com leques finos e distribuição uniforme.","alt":"Imagem ilustrativa de cílios com leques finos e volume 4D"},
+    {"id":"luxo-5d","category":"Extensão de cílios","name":"Volume Luxo 5D","price":125,"maintenance":100,"image":"cilios/luxo-5d.webp","description":"Mais densidade visual para destacar o olhar com acabamento sofisticado.","alt":"Imagem ilustrativa de extensão de cílios com volume 5D e fios definidos"},
+    {"id":"glamour-8d","category":"Extensão de cílios","name":"Volume Glamour 8D","price":135,"maintenance":115,"image":"cilios/glamour-8d.webp","description":"Volume expressivo, com fios definidos e curvatura elegante.","alt":"Imagem ilustrativa de cílios com volume expressivo 8D"},
+    {"id":"fox-eyes","category":"Extensão de cílios","name":"Fox Eyes","price":135,"maintenance":115,"image":"cilios/fox-eyes.webp","description":"Alongamento visual em direção aos cantos externos dos olhos.","alt":"Imagem ilustrativa de extensão de cílios com alongamento nos cantos externos"},
+    {"id":"sirena","category":"Extensão de cílios","name":"Sirena","price":130,"maintenance":110,"image":"cilios/sirena.webp","description":"Representação aproximada de um olhar alongado, com curvatura suave e destaque nos cantos externos.","alt":"Representação aproximada e ilustrativa do estilo Sirena com cílios alongados"},
+    {"id":"remocao-cilios","category":"Cuidado com os cílios","name":"Remoção de cílios","prices":[["De outro(a) profissional",20],["Do meu procedimento",10]],"image":"tratamentos/remocao-cilios.webp","description":"A remoção das extensões deve ser feita com cuidado e por uma profissional qualificada, utilizando o produto adequado para proteger seus olhos e preservar seus cílios naturais. Evite desconfortos, quebras e quedas. Sua saúde e seu olhar merecem atenção especial.","alt":"Cena ilustrativa de remoção profissional de extensões com olhos fechados e aplicação delicada de produto"},
+    {"id":"limpeza-manutencao","category":"Design de sobrancelhas","name":"Limpeza e manutenção","price":30,"image":"sobrancelhas/limpeza-manutencao.webp","description":"Acabamento cuidadoso, respeitando o formato natural das suas sobrancelhas.","alt":"Imagem ilustrativa de sobrancelha natural com limpeza e acabamento delicados"},
+    {"id":"design-henna","category":"Design de sobrancelhas","name":"Design + Henna","price":40,"image":"sobrancelhas/design-henna.webp","description":"Definição e preenchimento com henna para valorizar a expressão do rosto.","alt":"Imagem ilustrativa de sobrancelhas definidas com preenchimento por henna"},
+    {"id":"brow-lamination","category":"Design de sobrancelhas","name":"Brow Lamination","price":60,"image":"sobrancelhas/brow-lamination.webp","description":"Fios alinhados e fixados para uma aparência mais uniforme e com maior volume.","alt":"Imagem ilustrativa de sobrancelha com fios alinhados pelo efeito de laminação"},
+    {"id":"brow-lamination-henna","category":"Design de sobrancelhas","name":"Brow Lamination com Henna","price":70,"image":"sobrancelhas/brow-lamination-henna.webp","description":"Alinhamento dos fios combinado ao efeito de preenchimento com henna.","alt":"Imagem ilustrativa de sobrancelhas laminadas com preenchimento por henna"},
+    {"id":"limpeza-pele","category":"Cuidados faciais","name":"Limpeza de Pele","price":120,"image":"tratamentos/limpeza-pele.webp","description":"Procedimento completo que remove impurezas, controla a oleosidade e ajuda na prevenção de cravos e acne, deixando a pele limpa, equilibrada e revitalizada.","alt":"Cena ilustrativa de limpeza facial com aplicação de produto e luvas"},
+    {"id":"peeling-coreano","category":"Cuidados faciais","name":"Limpeza de Pele com Peeling Coreano","price":180,"image":"tratamentos/peeling-coreano.webp","description":"Uma experiência mais profunda de renovação e revitalização da pele. O Peeling Coreano é um tratamento moderno que potencializa os resultados da limpeza, promovendo textura mais uniforme e aparência mais jovem.","imageNote":"Cena facial genérica ilustrativa; o protocolo é definido no atendimento.","alt":"Cena genérica ilustrativa de cuidado facial cosmético, sem representação de protocolo específico"},
+    {"id":"spa-labial","category":"Cuidados faciais","name":"Spa Labial","price":25,"image":"tratamentos/spa-labial.webp","description":"Hidratação profunda dos lábios, remoção de pelinhas e ressecamentos, lábios mais macios e suaves, aspecto saudável e revitalizado. Auxilia na recuperação de lábios rachados, melhora a textura e a aparência natural e proporciona sensação de conforto e cuidado imediato.","alt":"Imagem ilustrativa de cuidado labial com aplicação delicada de hidratante, sem injeções"},
+    {"id":"drenagem-linfatica","category":"Cuidado corporal","name":"Drenagem Linfática","prices":[["Sessão individual",80],["Pacote de 5 sessões",360],["Pacote de 10 sessões",750]],"image":"tratamentos/drenagem-linfatica.webp","description":"Cuidado corporal com movimentos manuais suaves em um ambiente acolhedor.","note":"No pacote de 10 sessões, uma sessão adicional de brinde.","alt":"Cena ilustrativa de drenagem linfática manual suave em perna, com toalhas neutras"}
+  ],
+  "payments":["Pix","Dinheiro","Cartão de débito","Cartão de crédito"],
+  "phone":"(11) 93298-4787",
+  "whatsapp":"5511932984787",
+  "instagram":"pri.beauty_"
+}

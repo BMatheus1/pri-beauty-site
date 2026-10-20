@@ -24,6 +24,23 @@ const zoomInButton = document.querySelector('#zoom-in');
 const fitButton = document.querySelector('#fit-book');
 const fullscreenButton = document.querySelector('#fullscreen-book');
 const errorMessage = document.querySelector('#viewer-error');
+const pageSelect = document.querySelector('#page-select');
+const imageLoads = new Map();
+
+function preloadNearbyPages(index) {
+  const tasks = [];
+  pages.slice(Math.max(0, index - 2), index + 4).forEach(page => {
+    page.querySelectorAll('img[data-catalog-image]').forEach(image => {
+      if (image.dataset.src && !imageLoads.has(image)) {
+        image.src = image.dataset.src;
+        image.removeAttribute('data-src');
+        imageLoads.set(image, image.decode().catch(() => {}));
+      }
+      if (imageLoads.has(image)) tasks.push(imageLoads.get(image));
+    });
+  });
+  return Promise.all(tasks);
+}
 
 let pageFlip = null;
 let viewerState = 'loading';
@@ -91,6 +108,13 @@ function animateCoverSignature() {
 }
 
 pages.forEach((page, index) => {
+  if (pageSelect) {
+    const option = document.createElement('option');
+    option.value = String(index);
+    option.textContent = `${index + 1}. ${page.getAttribute('aria-label') || 'Página'}`;
+    pageSelect.append(option);
+    return;
+  }
   const dot = document.createElement('button');
   dot.type = 'button';
   dot.className = 'page-dot';
@@ -108,6 +132,7 @@ function updateControls(pageIndex = currentPage) {
   const previousPage = currentPage;
   currentPage = Math.max(0, Math.min(pageIndex, pages.length - 1));
   viewerPanel.dataset.coverVisible = String(currentPage === 0);
+  preloadNearbyPages(currentPage);
   if (currentPage !== 0) finishCoverSignature();
   else if (previousPage !== 0) animateCoverSignature();
   const controlsLocked = navigationLocked || ['loading', 'error', 'dragging', 'flipping'].includes(viewerState);
@@ -115,6 +140,10 @@ function updateControls(pageIndex = currentPage) {
   counter.setAttribute('aria-label', `Página ${currentPage + 1} de ${pages.length}`);
   previousButton.disabled = currentPage === 0 || controlsLocked;
   nextButton.disabled = currentPage === pages.length - 1 || controlsLocked;
+  if (pageSelect) {
+    pageSelect.value = String(currentPage);
+    pageSelect.disabled = controlsLocked;
+  }
   [...dotsContainer.children].forEach((dot, index) => {
     dot.disabled = controlsLocked;
     if (index === currentPage) dot.setAttribute('aria-current', 'page');
@@ -137,8 +166,11 @@ function lockNavigation() {
   }, (reducedMotion ? 240 : flipbookConfig.animationDuration) + 100);
 }
 
-function goToPage(index) {
+async function goToPage(index) {
   if (!canNavigate() || index === currentPage || index < 0 || index >= pages.length) return;
+  setViewerState('loading');
+  updateControls(currentPage);
+  await preloadNearbyPages(index);
   setViewerState('flipping');
   lockNavigation();
   pageFlip.flip(index, 'bottom');
@@ -251,6 +283,7 @@ function initializeFlipbook() {
 }
 
 previousButton.addEventListener('click', flipPrevious);
+pageSelect?.addEventListener('change', event => goToPage(Number(event.target.value)));
 nextButton.addEventListener('click', flipNext);
 zoomOutButton.addEventListener('click', () => setZoom(zoomLevel - 0.08));
 zoomInButton.addEventListener('click', () => setZoom(zoomLevel + 0.08));
