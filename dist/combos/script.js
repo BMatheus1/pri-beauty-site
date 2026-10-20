@@ -37,6 +37,59 @@ let navigationUnlockTimer = 0;
 const reducedMotion = flipbookConfig.reducedMotionSupport &&
   window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+const coverSignature = document.querySelector('.cover-signature');
+const signatureGuide = document.querySelector('.signature-guide');
+const signatureWings = document.querySelector('.signature-wings');
+const signatureStrokes = [...document.querySelectorAll('[data-pen]')].map(path => ({
+  path,
+  length: path.getTotalLength()
+}));
+let signatureFrame = 0;
+
+function finishCoverSignature() {
+  cancelAnimationFrame(signatureFrame);
+  signatureFrame = 0;
+  coverSignature.classList.remove('is-writing');
+}
+
+function animateCoverSignature() {
+  finishCoverSignature();
+  if (reducedMotion || document.hidden) return;
+  signatureStrokes.forEach(({ path, length }) => {
+    path.style.strokeDasharray = `${length} ${length}`;
+    path.style.strokeDashoffset = String(length);
+  });
+  coverSignature.classList.add('is-writing');
+  const duration = 4800;
+  const totalLength = signatureStrokes.reduce((sum, stroke) => sum + stroke.length, 0);
+  let started = null;
+
+  function draw(now) {
+    if (started === null) started = now;
+    const progress = Math.min((now - started) / duration, 1);
+    let remaining = progress * totalLength;
+    let activeStroke = signatureStrokes[0];
+    let activeDistance = 0;
+    signatureStrokes.forEach(stroke => {
+      const distance = Math.min(Math.max(remaining, 0), stroke.length);
+      stroke.path.style.strokeDashoffset = String(stroke.length - distance);
+      if (remaining >= 0) {
+        activeStroke = stroke;
+        activeDistance = distance;
+      }
+      remaining -= stroke.length;
+    });
+    const point = activeStroke.path.getPointAtLength(activeDistance);
+    const flutter = .75 + .25 * Math.sin((now - started) / 65);
+    signatureGuide.setAttribute('transform', `translate(${point.x} ${point.y - 15}) rotate(${Math.sin(progress * 20) * 12})`);
+    signatureWings.setAttribute('transform', `scale(${.27 * flutter} .27) translate(-1135 -385)`);
+    if (progress < 1) signatureFrame = requestAnimationFrame(draw);
+    else finishCoverSignature();
+  }
+
+  signatureFrame = requestAnimationFrame(draw);
+}
+
 pages.forEach((page, index) => {
   const dot = document.createElement('button');
   dot.type = 'button';
@@ -52,7 +105,10 @@ function setViewerState(nextState) {
 }
 
 function updateControls(pageIndex = currentPage) {
+  const previousPage = currentPage;
   currentPage = Math.max(0, Math.min(pageIndex, pages.length - 1));
+  if (currentPage !== 0) finishCoverSignature();
+  else if (previousPage !== 0) animateCoverSignature();
   const controlsLocked = navigationLocked || ['loading', 'error', 'dragging', 'flipping'].includes(viewerState);
   counter.textContent = `${currentPage + 1} / ${pages.length}`;
   counter.setAttribute('aria-label', `Página ${currentPage + 1} de ${pages.length}`);
@@ -166,6 +222,7 @@ function initializeFlipbook() {
       bookElement.classList.add('is-ready');
       bookElement.dataset.orientation = event.data.mode;
       updateControls(event.data.page);
+      animateCoverSignature();
     });
 
     pageFlip.on('flip', event => updateControls(event.data));
@@ -226,10 +283,15 @@ const resizeObserver = new ResizeObserver(entries => {
 resizeObserver.observe(viewerPanel);
 
 window.addEventListener('pagehide', () => {
+  finishCoverSignature();
   cancelAnimationFrame(resizeFrame);
   clearTimeout(navigationUnlockTimer);
   resizeObserver.disconnect();
 }, { once: true });
+
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) finishCoverSignature();
+});
 
 updateControls(0);
 initializeFlipbook();

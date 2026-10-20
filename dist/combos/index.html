@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#b98a31">
   <meta name="description" content="Conheça os combos promocionais da Pri Beauty.">
   <title>Combos promocionais | Pri Beauty</title>
-  <link rel="stylesheet" href="./styles.css?v=20261020-4">
+  <link rel="stylesheet" href="./styles.css?v=20261020-logo-1">
 </head>
 <body>
   <header class="topbar">
@@ -33,12 +33,38 @@
           <div class="book-pages" id="book-pages" aria-live="polite">
         <article class="book-page cover" data-page="0" data-density="hard" aria-label="Capa">
           <span class="ornament ornament-top" aria-hidden="true"></span>
-          <div class="cover-mark">
-            <img src="../images/logo-pb-watermark.webp" width="1296" height="730" alt="Logo Pri Beauty">
+          <div class="cover-content">
+          <div class="cover-signature" aria-label="Logo Pri Beauty com borboleta">
+            <svg class="signature-art" viewBox="0 0 1296 730" role="img" aria-label="Monograma PB da Pri Beauty">
+              <defs>
+                <mask id="signature-reveal" maskUnits="userSpaceOnUse" x="0" y="0" width="1296" height="730">
+                  <g fill="none" stroke="white" stroke-width="84" stroke-linecap="round" stroke-linejoin="round">
+                    <path data-pen d="M260 366 C123 273 -11 403 98 493 C220 595 394 524 503 374 C596 251 794 361 869 478 C949 604 1106 565 1148 400"/>
+                    <path data-pen d="M492 515 L492 147 L584 147 C754 146 768 347 586 358 L491 358"/>
+                    <path data-pen d="M626 655 L626 326 L689 326 C837 326 831 450 685 465 C861 462 884 676 695 660 L626 660"/>
+                    <path data-pen d="M641 434 C479 405 363 477 414 591 C465 699 627 681 711 617"/>
+                    <path data-pen d="M1141 392 C1209 282 1112 27 1076 99 C1046 157 1013 331 1141 392 C1032 167 939 203 989 304 C1021 355 1081 381 1141 392 C956 248 895 352 980 412 C1038 451 1109 401 1141 392"/>
+                    <path data-pen d="M1121 425 L1166 360 M1158 363 C1207 333 1188 296 1197 282 M1160 374 C1211 363 1228 327 1232 296"/>
+                  </g>
+                </mask>
+                <clipPath id="signature-butterfly-clip" clipPathUnits="userSpaceOnUse">
+                  <path d="M1060 71 L1122 71 L1183 257 L1255 270 L1236 355 L1165 419 L1040 451 L941 419 L937 333 L976 309 L966 250 L1006 222 L1035 222 Z"/>
+                </clipPath>
+              </defs>
+              <image class="signature-ink signature-drawing" href="../images/logo-pb-watermark.webp" width="1296" height="730" mask="url(#signature-reveal)"/>
+              <image class="signature-ink signature-finished" href="../images/logo-pb-watermark.webp" width="1296" height="730"/>
+              <g class="signature-guide" aria-hidden="true">
+                <g class="signature-wings" transform="scale(.27) translate(-1135 -385)">
+                  <image class="signature-ink" href="../images/logo-pb-watermark.webp" width="1296" height="730" clip-path="url(#signature-butterfly-clip)"/>
+                </g>
+              </g>
+            </svg>
           </div>
+          <p class="cover-brand">Pri Beauty</p>
           <p class="cover-kicker">Cuidado para você</p>
           <h2>Combos<br><em>promocionais</em></h2>
           <p class="cover-copy">Experiências pensadas para realçar a sua beleza natural.</p>
+          </div>
           <div class="cover-hint" aria-hidden="true">
             <span>Vire a página</span>
             <svg viewBox="0 0 24 24"><path d="M5 12h14M14 7l5 5-5 5"/></svg>
@@ -165,6 +191,6 @@
   </main>
 
   <script src="./vendor/page-flip.browser.js?v=2.0.7" defer></script>
-  <script src="./script.js?v=20261020-4" defer></script>
+  <script src="./script.js?v=20261020-logo-1" defer></script>
 </body>
 </html>

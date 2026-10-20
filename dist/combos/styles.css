@@ -135,8 +135,20 @@ button { touch-action: manipulation; }
 }
 .cover::before { border-color: rgba(255,255,255,.64); }
 .cover::after { opacity: .7; filter: brightness(0) invert(1); }
-.cover-mark { position: absolute; z-index: 0; top: 7%; left: 50%; width: 58%; transform: translateX(-50%); opacity: .3; }
-.cover-mark img { display: block; width: 100%; height: auto; filter: brightness(0) invert(1); }
+.cover > .cover-content { position: absolute; inset: 29px 25px 65px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.cover-signature { width: min(100%, 300px); flex: 0 0 auto; pointer-events: none; }
+.signature-art { display: block; width: 100%; height: auto; overflow: visible; }
+.signature-ink { filter: brightness(0) invert(1); }
+.signature-drawing { opacity: 0; }
+.signature-finished { opacity: 1; transition: opacity 260ms ease; }
+.signature-guide { opacity: 0; }
+.cover-signature.is-writing .signature-drawing { opacity: 1; }
+.cover-signature.is-writing .signature-finished { opacity: 0; }
+.cover-signature.is-writing .signature-guide { opacity: 1; }
+.cover-brand { margin: 0 0 24px; font-family: "Cormorant Garamond", Georgia, serif; font-size: clamp(1.9rem, 5vw, 2.5rem); letter-spacing: .08em; line-height: 1; }
+.cover-content .cover-kicker { font-size: .57rem; margin-bottom: 14px; }
+.cover-content h2 { font-size: clamp(2.9rem, 9vw, 4.4rem); }
+.cover-content .cover-copy { margin-top: 22px; font-size: clamp(1rem, 2.5vw, 1.1rem); }
 .cover-kicker, .page-kicker { margin: 0 0 12px; font-size: clamp(.58rem, 1.5vw, .7rem); font-weight: 700; letter-spacing: .22em; text-transform: uppercase; }
 .cover h2 { margin: 0; font-family: "Cormorant Garamond", Georgia, serif; font-size: clamp(3.2rem, 10vw, 5.5rem); font-weight: 500; line-height: .76; letter-spacing: -.045em; }
 .cover h2 em { display: inline-block; margin-top: .24em; font-size: .62em; font-weight: 500; }
@@ -201,6 +213,10 @@ button { touch-action: manipulation; }
 
 @media (max-width: 350px) {
   .book-page { padding-inline: 21px; }
+  .cover-signature { width: 88%; }
+  .cover-brand { margin-bottom: 14px; font-size: 1.7rem; }
+  .cover-content .cover-copy { margin-top: 16px; font-size: .94rem; }
+  .cover-content h2 { font-size: 2.65rem; }
   .offer h2 { font-size: 1.65rem; }
   .services { font-size: .98rem; }
   .price-block strong { font-size: 2.6rem; }
