@@ -5,10 +5,11 @@ const counter = document.querySelector('#page-counter');
 const dotsContainer = document.querySelector('#page-dots');
 const book = document.querySelector('#book-pages');
 let currentPage = 0;
-let changing = false;
 let touchStartX = 0;
 
 pages.forEach((page, index) => {
+  page.hidden = false;
+  page.style.zIndex = String(pages.length - index);
   const dot = document.createElement('button');
   dot.type = 'button';
   dot.className = 'page-dot';
@@ -21,6 +22,12 @@ function updateControls() {
   counter.textContent = `${currentPage + 1} / ${pages.length}`;
   previousButton.disabled = currentPage === 0;
   nextButton.disabled = currentPage === pages.length - 1;
+  pages.forEach((page, index) => {
+    const isCurrent = index === currentPage;
+    page.setAttribute('aria-hidden', String(!isCurrent));
+    page.toggleAttribute('inert', !isCurrent);
+    page.classList.toggle('is-active', isCurrent);
+  });
   [...dotsContainer.children].forEach((dot, index) => {
     if (index === currentPage) dot.setAttribute('aria-current', 'page');
     else dot.removeAttribute('aria-current');
@@ -28,29 +35,20 @@ function updateControls() {
 }
 
 function showPage(index) {
-  if (changing || index === currentPage || index < 0 || index >= pages.length) return;
-  changing = true;
-  const oldPage = pages[currentPage];
-  const newPage = pages[index];
+  if (index === currentPage || index < 0 || index >= pages.length) return;
   const movingForward = index > currentPage;
+  const turningPage = movingForward ? pages[currentPage] : pages[index];
 
-  oldPage.hidden = true;
-  oldPage.classList.remove('is-active');
-  newPage.hidden = false;
-  newPage.classList.add('is-active');
+  pages.forEach((page, pageIndex) => {
+    page.classList.toggle('is-turned', pageIndex < index);
+  });
+  turningPage.classList.add('is-turning');
+  turningPage.addEventListener('transitionend', () => {
+    turningPage.classList.remove('is-turning');
+  }, { once: true });
+
   currentPage = index;
   updateControls();
-  changing = false;
-
-  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    newPage.animate(
-      [
-        { opacity: 0, transform: `rotateY(${movingForward ? '8deg' : '-8deg'}) translateX(${movingForward ? '16px' : '-16px'})` },
-        { opacity: 1, transform: 'rotateY(0deg) translateX(0)' }
-      ],
-      { duration: 280, easing: 'cubic-bezier(.2,.75,.25,1)' }
-    );
-  }
 }
 
 previousButton.addEventListener('click', () => showPage(currentPage - 1));
@@ -70,5 +68,12 @@ book.addEventListener('touchend', event => {
   if (Math.abs(distance) < 45) return;
   showPage(currentPage + (distance < 0 ? 1 : -1));
 }, { passive: true });
+
+book.addEventListener('click', event => {
+  if (event.target.closest('a, button')) return;
+  const bounds = book.getBoundingClientRect();
+  const clickedRightSide = event.clientX > bounds.left + bounds.width / 2;
+  showPage(currentPage + (clickedRightSide ? 1 : -1));
+});
 
 updateControls();
