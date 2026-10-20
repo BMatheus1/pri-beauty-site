@@ -129,18 +129,40 @@ button { touch-action: manipulation; }
   justify-content: center;
   color: #fff;
   background:
-    radial-gradient(circle at 72% 12%, rgba(255,255,255,.34), transparent 22%),
-    radial-gradient(circle at 22% 82%, rgba(255,255,255,.16), transparent 28%),
-    linear-gradient(145deg, #d7b568 0%, #b38632 46%, #d8b86f 100%);
+    linear-gradient(112deg, transparent 19%, rgba(255,250,221,.36) 24%, rgba(255,255,245,.08) 29%, transparent 35%),
+    linear-gradient(167deg, rgba(255,255,241,.4), transparent 25%, rgba(116,78,13,.08) 55%, rgba(255,249,220,.3) 80%, transparent),
+    linear-gradient(115deg, #c5a052 0%, #e2c47e 15%, #c79f49 31%, #b58a35 47%, #cfab58 56%, #eed69a 71%, #c6a14d 88%, #dec17a 100%);
+  box-shadow: inset 1px 0 1px rgba(255,255,235,.75), inset -2px 0 3px rgba(112,75,12,.18);
 }
 .cover::before { border-color: rgba(255,255,255,.64); }
 .cover::after { opacity: .7; filter: brightness(0) invert(1); }
+.cover > .cover-foil {
+  position: absolute;
+  z-index: 2;
+  inset: -30% -100%;
+  pointer-events: none;
+  background: linear-gradient(110deg, transparent 38%, rgba(255,255,245,.08) 43%, rgba(255,255,250,.36) 48%, rgba(255,255,255,.56) 49.5%, rgba(255,250,225,.12) 53%, transparent 60%);
+  opacity: 0;
+  transform: translateX(-45%);
+}
+.viewer-panel[data-cover-visible="true"] .cover-foil { animation: foil-reflection 7s ease-in-out 2; }
+.viewer-panel[data-state="flipping"] .cover-foil,
+.viewer-panel[data-state="dragging"] .cover-foil { animation-play-state: paused; }
+@keyframes foil-reflection {
+  0%, 12% { opacity: 0; transform: translateX(-45%); }
+  26% { opacity: .8; }
+  60% { opacity: .65; }
+  76%, 100% { opacity: 0; transform: translateX(45%); }
+}
 .cover > .cover-content { position: absolute; inset: 29px 25px 65px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.cover-content, .cover-hint { text-shadow: 0 1px 2px rgba(90,59,9,.24); }
 .cover-signature { width: min(100%, 300px); flex: 0 0 auto; pointer-events: none; }
 .signature-art { display: block; width: 100%; height: auto; overflow: visible; }
 .signature-ink { filter: brightness(0) invert(1); }
 .signature-drawing { opacity: 0; }
 .signature-finished { opacity: 1; transition: opacity 260ms ease; }
+.signature-metal { opacity: .88; transition: opacity 260ms ease; }
+.cover-signature.is-writing .signature-metal { opacity: 0; }
 .signature-guide { opacity: 0; }
 .cover-signature.is-writing .signature-drawing { opacity: 1; }
 .cover-signature.is-writing .signature-finished { opacity: 0; }

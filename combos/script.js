@@ -107,6 +107,7 @@ function setViewerState(nextState) {
 function updateControls(pageIndex = currentPage) {
   const previousPage = currentPage;
   currentPage = Math.max(0, Math.min(pageIndex, pages.length - 1));
+  viewerPanel.dataset.coverVisible = String(currentPage === 0);
   if (currentPage !== 0) finishCoverSignature();
   else if (previousPage !== 0) animateCoverSignature();
   const controlsLocked = navigationLocked || ['loading', 'error', 'dragging', 'flipping'].includes(viewerState);

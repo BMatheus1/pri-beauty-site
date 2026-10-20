@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#b98a31">
   <meta name="description" content="Conheça os combos promocionais da Pri Beauty.">
   <title>Combos promocionais | Pri Beauty</title>
-  <link rel="stylesheet" href="./styles.css?v=20261020-logo-1">
+  <link rel="stylesheet" href="./styles.css?v=20261020-metal-1">
 </head>
 <body>
   <header class="topbar">
@@ -32,11 +32,24 @@
         <div class="book-stage" id="book-stage">
           <div class="book-pages" id="book-pages" aria-live="polite">
         <article class="book-page cover" data-page="0" data-density="hard" aria-label="Capa">
+          <span class="cover-foil" aria-hidden="true"></span>
           <span class="ornament ornament-top" aria-hidden="true"></span>
           <div class="cover-content">
           <div class="cover-signature" aria-label="Logo Pri Beauty com borboleta">
             <svg class="signature-art" viewBox="0 0 1296 730" role="img" aria-label="Monograma PB da Pri Beauty">
               <defs>
+                <linearGradient id="signature-metal-gradient" x1="0" y1="0" x2=".9" y2="1">
+                  <stop offset="0" stop-color="#fffdf1"/>
+                  <stop offset=".24" stop-color="#f8e6b2"/>
+                  <stop offset=".43" stop-color="#fffefa"/>
+                  <stop offset=".49" stop-color="#b89a53"/>
+                  <stop offset=".54" stop-color="#fdf2d0"/>
+                  <stop offset=".7" stop-color="#ffffff"/>
+                  <stop offset="1" stop-color="#dac080"/>
+                </linearGradient>
+                <mask id="signature-metal-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="1296" height="730">
+                  <image class="signature-ink" href="../images/logo-pb-watermark.webp" width="1296" height="730"/>
+                </mask>
                 <mask id="signature-reveal" maskUnits="userSpaceOnUse" x="0" y="0" width="1296" height="730">
                   <g fill="none" stroke="white" stroke-width="84" stroke-linecap="round" stroke-linejoin="round">
                     <path data-pen d="M260 366 C123 273 -11 403 98 493 C220 595 394 524 503 374 C596 251 794 361 869 478 C949 604 1106 565 1148 400"/>
@@ -53,6 +66,7 @@
               </defs>
               <image class="signature-ink signature-drawing" href="../images/logo-pb-watermark.webp" width="1296" height="730" mask="url(#signature-reveal)"/>
               <image class="signature-ink signature-finished" href="../images/logo-pb-watermark.webp" width="1296" height="730"/>
+              <rect class="signature-metal" width="1296" height="730" fill="url(#signature-metal-gradient)" mask="url(#signature-metal-mask)"/>
               <g class="signature-guide" aria-hidden="true">
                 <g class="signature-wings" transform="scale(.27) translate(-1135 -385)">
                   <image class="signature-ink" href="../images/logo-pb-watermark.webp" width="1296" height="730" clip-path="url(#signature-butterfly-clip)"/>
@@ -191,6 +205,6 @@
   </main>
 
   <script src="./vendor/page-flip.browser.js?v=2.0.7" defer></script>
-  <script src="./script.js?v=20261020-logo-1" defer></script>
+  <script src="./script.js?v=20261020-metal-1" defer></script>
 </body>
 </html>
