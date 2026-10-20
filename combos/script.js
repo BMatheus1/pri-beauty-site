@@ -10,6 +10,13 @@ let touchStartX = 0;
 pages.forEach((page, index) => {
   page.hidden = false;
   page.style.zIndex = String(pages.length - index);
+  const pageCorner = document.createElement('span');
+  pageCorner.className = 'page-corner';
+  pageCorner.setAttribute('aria-hidden', 'true');
+  const pageFold = document.createElement('span');
+  pageFold.className = 'page-fold';
+  pageFold.setAttribute('aria-hidden', 'true');
+  page.append(pageCorner, pageFold);
   const dot = document.createElement('button');
   dot.type = 'button';
   dot.className = 'page-dot';
@@ -42,9 +49,11 @@ function showPage(index) {
   pages.forEach((page, pageIndex) => {
     page.classList.toggle('is-turned', pageIndex < index);
   });
+  turningPage.classList.remove('turn-forward', 'turn-backward');
+  turningPage.classList.add(movingForward ? 'turn-forward' : 'turn-backward');
   turningPage.classList.add('is-turning');
   turningPage.addEventListener('transitionend', () => {
-    turningPage.classList.remove('is-turning');
+    turningPage.classList.remove('is-turning', 'turn-forward', 'turn-backward');
   }, { once: true });
 
   currentPage = index;

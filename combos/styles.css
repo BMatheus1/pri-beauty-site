@@ -105,6 +105,20 @@ button { touch-action: manipulation; }
   filter: drop-shadow(0 22px 28px rgba(75, 49, 9, .2));
 }
 
+.book-pages::before {
+  content: "";
+  position: absolute;
+  z-index: 20;
+  top: 1.5%;
+  bottom: 1.5%;
+  left: 0;
+  width: 13px;
+  border-radius: 10px 0 0 10px;
+  background: linear-gradient(90deg, rgba(79, 47, 3, .22), rgba(255, 255, 255, .32) 35%, rgba(91, 57, 7, .12) 72%, transparent);
+  box-shadow: 3px 0 8px rgba(74, 47, 5, .08);
+  pointer-events: none;
+}
+
 .book-page {
   position: absolute;
   inset: 0;
@@ -150,6 +164,101 @@ button { touch-action: manipulation; }
 
 .book-page.is-turning {
   box-shadow: 24px 12px 38px rgba(68, 43, 5, .24);
+}
+
+.book-page > .page-corner,
+.book-page > .page-fold {
+  position: absolute;
+  display: block;
+  pointer-events: none;
+}
+
+.page-corner {
+  z-index: 12;
+  right: -1px;
+  bottom: -1px;
+  width: clamp(42px, 12%, 58px);
+  aspect-ratio: 1;
+  opacity: .74;
+  clip-path: polygon(100% 0, 100% 100%, 0 100%);
+  background:
+    linear-gradient(135deg,
+      transparent 0 43%,
+      rgba(108, 72, 13, .18) 44%,
+      rgba(255, 255, 255, .96) 53%,
+      rgba(226, 197, 139, .7) 72%,
+      rgba(139, 99, 28, .3) 100%);
+  filter: drop-shadow(-4px -3px 5px rgba(72, 45, 4, .16));
+  transition: opacity 160ms ease;
+}
+
+.book-page.is-turning .page-corner,
+.book-page.is-turned .page-corner {
+  opacity: 0;
+}
+
+.page-fold {
+  z-index: 30 !important;
+  top: -4%;
+  right: -8%;
+  bottom: -4%;
+  width: 52%;
+  opacity: 0;
+  border-radius: 70% 7% 7% 70% / 12% 4% 4% 12%;
+  background:
+    linear-gradient(90deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, .12) 22%,
+      rgba(74, 45, 2, .22) 43%,
+      rgba(255, 255, 255, .94) 51%,
+      rgba(234, 207, 154, .92) 60%,
+      rgba(105, 65, 4, .25) 74%,
+      rgba(255, 255, 255, 0) 100%);
+  filter: drop-shadow(-10px 0 10px rgba(66, 40, 2, .18));
+  transform: translateX(112%) scaleX(.2) skewY(-1deg);
+  transform-origin: right center;
+}
+
+.book-page.is-turning.turn-forward .page-fold {
+  animation: page-curl-forward 680ms cubic-bezier(.62, .02, .28, 1) both;
+}
+
+.book-page.is-turning.turn-backward .page-fold {
+  animation: page-curl-backward 680ms cubic-bezier(.62, .02, .28, 1) both;
+}
+
+.book-page.is-turning.turn-forward {
+  animation: sheet-bend-forward 680ms cubic-bezier(.62, .02, .28, 1) both;
+}
+
+.book-page.is-turning.turn-backward {
+  animation: sheet-bend-backward 680ms cubic-bezier(.62, .02, .28, 1) both;
+}
+
+@keyframes page-curl-forward {
+  0% { opacity: 0; transform: translateX(112%) scaleX(.16) skewY(-1deg); }
+  14% { opacity: .82; }
+  48% { opacity: 1; transform: translateX(25%) scaleX(1.08) skewY(1.2deg); }
+  76% { opacity: .9; }
+  100% { opacity: 0; transform: translateX(108%) scaleX(.22) skewY(0); }
+}
+
+@keyframes page-curl-backward {
+  0% { opacity: 0; transform: translateX(108%) scaleX(.22) skewY(0); }
+  20% { opacity: .9; }
+  52% { opacity: 1; transform: translateX(25%) scaleX(1.08) skewY(1.2deg); }
+  86% { opacity: .82; }
+  100% { opacity: 0; transform: translateX(112%) scaleX(.16) skewY(-1deg); }
+}
+
+@keyframes sheet-bend-forward {
+  0%, 100% { clip-path: polygon(0 0, 100% 0, 100% 0, 100% 50%, 100% 100%, 100% 100%, 0 100%); }
+  48% { clip-path: polygon(0 0, 91% 0, 100% 8%, 95% 50%, 100% 92%, 91% 100%, 0 100%); }
+}
+
+@keyframes sheet-bend-backward {
+  0%, 100% { clip-path: polygon(0 0, 100% 0, 100% 0, 100% 50%, 100% 100%, 100% 100%, 0 100%); }
+  52% { clip-path: polygon(0 0, 91% 0, 100% 8%, 95% 50%, 100% 92%, 91% 100%, 0 100%); }
 }
 
 .cover {
