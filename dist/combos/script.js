@@ -1,88 +1,235 @@
+const flipbookConfig = Object.freeze({
+  animationDuration: 800,
+  enableShadows: true,
+  shadowIntensity: 0.35,
+  enableDrag: true,
+  enableTouch: true,
+  showCover: true,
+  autoResponsive: true,
+  enableZoom: true,
+  enableKeyboard: true,
+  reducedMotionSupport: true
+});
+
+const viewerPanel = document.querySelector('#viewer-panel');
+const bookStage = document.querySelector('#book-stage');
+const bookElement = document.querySelector('#book-pages');
 const pages = [...document.querySelectorAll('.book-page')];
 const previousButton = document.querySelector('#prev-page');
 const nextButton = document.querySelector('#next-page');
 const counter = document.querySelector('#page-counter');
 const dotsContainer = document.querySelector('#page-dots');
-const book = document.querySelector('#book-pages');
+const zoomOutButton = document.querySelector('#zoom-out');
+const zoomInButton = document.querySelector('#zoom-in');
+const fitButton = document.querySelector('#fit-book');
+const fullscreenButton = document.querySelector('#fullscreen-book');
+const errorMessage = document.querySelector('#viewer-error');
+
+let pageFlip = null;
+let viewerState = 'loading';
 let currentPage = 0;
-let touchStartX = 0;
+let zoomLevel = 1;
+let resizeFrame = 0;
+let lastViewerWidth = 0;
+let navigationLocked = false;
+let navigationUnlockTimer = 0;
+
+const reducedMotion = flipbookConfig.reducedMotionSupport &&
+  window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 pages.forEach((page, index) => {
-  page.hidden = false;
-  page.style.zIndex = String(pages.length - index);
-  const pageCorner = document.createElement('span');
-  pageCorner.className = 'page-corner';
-  pageCorner.setAttribute('aria-hidden', 'true');
-  const pageFold = document.createElement('span');
-  pageFold.className = 'page-fold';
-  pageFold.setAttribute('aria-hidden', 'true');
-  page.append(pageCorner, pageFold);
   const dot = document.createElement('button');
   dot.type = 'button';
   dot.className = 'page-dot';
   dot.setAttribute('aria-label', index === 0 ? 'Abrir capa' : `Abrir combo ${index}`);
-  dot.addEventListener('click', () => showPage(index));
+  dot.addEventListener('click', () => goToPage(index));
   dotsContainer.append(dot);
 });
 
-function updateControls() {
+function setViewerState(nextState) {
+  viewerState = nextState;
+  viewerPanel.dataset.state = nextState;
+}
+
+function updateControls(pageIndex = currentPage) {
+  currentPage = Math.max(0, Math.min(pageIndex, pages.length - 1));
+  const controlsLocked = navigationLocked || ['loading', 'error', 'dragging', 'flipping'].includes(viewerState);
   counter.textContent = `${currentPage + 1} / ${pages.length}`;
-  previousButton.disabled = currentPage === 0;
-  nextButton.disabled = currentPage === pages.length - 1;
-  pages.forEach((page, index) => {
-    const isCurrent = index === currentPage;
-    page.setAttribute('aria-hidden', String(!isCurrent));
-    page.toggleAttribute('inert', !isCurrent);
-    page.classList.toggle('is-active', isCurrent);
-  });
+  counter.setAttribute('aria-label', `Página ${currentPage + 1} de ${pages.length}`);
+  previousButton.disabled = currentPage === 0 || controlsLocked;
+  nextButton.disabled = currentPage === pages.length - 1 || controlsLocked;
   [...dotsContainer.children].forEach((dot, index) => {
+    dot.disabled = controlsLocked;
     if (index === currentPage) dot.setAttribute('aria-current', 'page');
     else dot.removeAttribute('aria-current');
   });
 }
 
-function showPage(index) {
-  if (index === currentPage || index < 0 || index >= pages.length) return;
-  const movingForward = index > currentPage;
-  const turningPage = movingForward ? pages[currentPage] : pages[index];
-
-  pages.forEach((page, pageIndex) => {
-    page.classList.toggle('is-turned', pageIndex < index);
-  });
-  turningPage.classList.remove('turn-forward', 'turn-backward');
-  turningPage.classList.add(movingForward ? 'turn-forward' : 'turn-backward');
-  turningPage.classList.add('is-turning');
-  turningPage.addEventListener('transitionend', () => {
-    turningPage.classList.remove('is-turning', 'turn-forward', 'turn-backward');
-  }, { once: true });
-
-  currentPage = index;
-  updateControls();
+function canNavigate() {
+  return pageFlip && viewerState === 'idle' && !navigationLocked;
 }
 
-previousButton.addEventListener('click', () => showPage(currentPage - 1));
-nextButton.addEventListener('click', () => showPage(currentPage + 1));
+function lockNavigation() {
+  navigationLocked = true;
+  clearTimeout(navigationUnlockTimer);
+  updateControls(currentPage);
+  navigationUnlockTimer = window.setTimeout(() => {
+    navigationLocked = false;
+    if (viewerState === 'flipping') setViewerState('idle');
+    updateControls(pageFlip?.getCurrentPageIndex() ?? currentPage);
+  }, (reducedMotion ? 240 : flipbookConfig.animationDuration) + 100);
+}
+
+function goToPage(index) {
+  if (!canNavigate() || index === currentPage || index < 0 || index >= pages.length) return;
+  setViewerState('flipping');
+  lockNavigation();
+  pageFlip.flip(index, 'bottom');
+}
+
+function flipNext() {
+  if (!canNavigate() || currentPage >= pages.length - 1) return;
+  setViewerState('flipping');
+  lockNavigation();
+  pageFlip.flipNext('bottom');
+}
+
+function flipPrevious() {
+  if (!canNavigate() || currentPage <= 0) return;
+  setViewerState('flipping');
+  lockNavigation();
+  pageFlip.flipPrev('bottom');
+}
+
+function setZoom(value) {
+  if (!flipbookConfig.enableZoom) return;
+  const mobileLimit = window.innerWidth < 640 ? 1.08 : 1.2;
+  zoomLevel = Math.max(0.84, Math.min(value, mobileLimit));
+  viewerPanel.style.setProperty('--book-zoom', zoomLevel.toFixed(2));
+  bookStage.classList.toggle('is-zoomed', zoomLevel > 1.001);
+  zoomOutButton.disabled = zoomLevel <= 0.84;
+  zoomInButton.disabled = zoomLevel >= mobileLimit;
+}
+
+async function toggleFullscreen() {
+  if (!document.fullscreenEnabled) return;
+  try {
+    if (document.fullscreenElement === viewerPanel) await document.exitFullscreen();
+    else await viewerPanel.requestFullscreen();
+  } catch {
+    fullscreenButton.disabled = true;
+  }
+}
+
+function showError(error) {
+  console.error('Falha ao iniciar o flipbook:', error);
+  setViewerState('error');
+  viewerPanel.classList.remove('is-loading');
+  viewerPanel.classList.add('is-error');
+  errorMessage.hidden = false;
+  updateControls(0);
+}
+
+function initializeFlipbook() {
+  if (!window.St?.PageFlip) {
+    showError(new Error('Biblioteca StPageFlip indisponível'));
+    return;
+  }
+
+  try {
+    pageFlip = new window.St.PageFlip(bookElement, {
+      width: 420,
+      height: 600,
+      size: 'stretch',
+      minWidth: 280,
+      maxWidth: 420,
+      minHeight: 400,
+      maxHeight: 600,
+      drawShadow: flipbookConfig.enableShadows,
+      flippingTime: reducedMotion ? 240 : flipbookConfig.animationDuration,
+      usePortrait: flipbookConfig.autoResponsive,
+      startPage: 0,
+      autoSize: true,
+      maxShadowOpacity: flipbookConfig.shadowIntensity,
+      showCover: flipbookConfig.showCover,
+      mobileScrollSupport: flipbookConfig.enableTouch,
+      swipeDistance: 24,
+      clickEventForward: true,
+      useMouseEvents: flipbookConfig.enableDrag,
+      showPageCorners: true,
+      disableFlipByClick: false
+    });
+
+    pageFlip.on('init', event => {
+      setViewerState('idle');
+      viewerPanel.classList.remove('is-loading');
+      bookElement.classList.add('is-ready');
+      bookElement.dataset.orientation = event.data.mode;
+      updateControls(event.data.page);
+    });
+
+    pageFlip.on('flip', event => updateControls(event.data));
+
+    pageFlip.on('changeState', event => {
+      const stateMap = {
+        read: 'idle',
+        user_fold: 'dragging',
+        fold_corner: 'dragging',
+        flipping: 'flipping'
+      };
+      setViewerState(stateMap[event.data] || 'idle');
+      updateControls(pageFlip.getCurrentPageIndex());
+    });
+
+    pageFlip.on('changeOrientation', event => {
+      bookElement.dataset.orientation = event.data;
+      requestAnimationFrame(() => updateControls(pageFlip.getCurrentPageIndex()));
+    });
+
+    pageFlip.loadFromHTML(pages);
+  } catch (error) {
+    showError(error);
+  }
+}
+
+previousButton.addEventListener('click', flipPrevious);
+nextButton.addEventListener('click', flipNext);
+zoomOutButton.addEventListener('click', () => setZoom(zoomLevel - 0.08));
+zoomInButton.addEventListener('click', () => setZoom(zoomLevel + 0.08));
+fitButton.addEventListener('click', () => setZoom(1));
+fullscreenButton.addEventListener('click', toggleFullscreen);
 
 document.addEventListener('keydown', event => {
-  if (event.key === 'ArrowLeft') showPage(currentPage - 1);
-  if (event.key === 'ArrowRight') showPage(currentPage + 1);
+  if (!flipbookConfig.enableKeyboard || event.altKey || event.ctrlKey || event.metaKey) return;
+  if (event.target.closest('input, textarea, select')) return;
+  if (event.key === 'ArrowLeft') flipPrevious();
+  if (event.key === 'ArrowRight') flipNext();
 });
 
-book.addEventListener('touchstart', event => {
-  touchStartX = event.changedTouches[0].clientX;
-}, { passive: true });
-
-book.addEventListener('touchend', event => {
-  const distance = event.changedTouches[0].clientX - touchStartX;
-  if (Math.abs(distance) < 45) return;
-  showPage(currentPage + (distance < 0 ? 1 : -1));
-}, { passive: true });
-
-book.addEventListener('click', event => {
-  if (event.target.closest('a, button')) return;
-  const bounds = book.getBoundingClientRect();
-  const clickedRightSide = event.clientX > bounds.left + bounds.width / 2;
-  showPage(currentPage + (clickedRightSide ? 1 : -1));
+document.addEventListener('fullscreenchange', () => {
+  fullscreenButton.setAttribute('aria-label', document.fullscreenElement ? 'Sair da tela cheia' : 'Abrir em tela cheia');
+  if (pageFlip) requestAnimationFrame(() => pageFlip.update());
 });
 
-updateControls();
+if (!document.fullscreenEnabled) fullscreenButton.hidden = true;
+
+const resizeObserver = new ResizeObserver(entries => {
+  const width = entries[0]?.contentRect.width || 0;
+  if (!pageFlip || Math.abs(width - lastViewerWidth) < 2) return;
+  lastViewerWidth = width;
+  cancelAnimationFrame(resizeFrame);
+  resizeFrame = requestAnimationFrame(() => {
+    setZoom(Math.min(zoomLevel, window.innerWidth < 640 ? 1.08 : 1.2));
+    if (viewerState === 'idle') pageFlip.update();
+  });
+});
+resizeObserver.observe(viewerPanel);
+
+window.addEventListener('pagehide', () => {
+  cancelAnimationFrame(resizeFrame);
+  clearTimeout(navigationUnlockTimer);
+  resizeObserver.disconnect();
+}, { once: true });
+
+updateControls(0);
+initializeFlipbook();
