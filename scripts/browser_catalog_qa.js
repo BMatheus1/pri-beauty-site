@@ -11,7 +11,7 @@
     await ready();
     const page = pages[index];
     const box = page.getBoundingClientRect();
-    const inner = page.querySelector('.catalog-page-inner') || page.querySelector('.cover-content');
+    const inner = page.querySelector('.catalog-page-inner') || page.querySelector('.cover-content') || page;
     const nodes = [...inner.children].filter(node => getComputedStyle(node).display !== 'none');
     const out = nodes.filter(node => {
       const rect = node.getBoundingClientRect();

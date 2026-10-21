@@ -195,6 +195,21 @@ button { touch-action: manipulation; }
 .book-cta { width: min(100%, 270px); min-height: 44px; display: inline-flex; align-items: center; justify-content: center; flex: 0 0 auto; margin-top: 15px; padding: 9px 16px; border: 1px solid var(--gold-deep); border-radius: 999px; color: #fff; background: var(--gold-deep); text-decoration: none; font-size: .7rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
 .book-cta:hover, .book-cta:focus-visible { color: var(--gold-deep); background: #fffaf1; }
 .page-brand { margin: 12px 0 0; color: #81735f; font-family: "Cormorant Garamond", Georgia, serif; font-size: .88rem; letter-spacing: .12em; }
+.offer-description { margin: 0; color: #6f6353; font-size: .8rem; line-height: 1.5; }
+.offer-price-list { width: 100%; margin: auto 0 0; padding-top: 14px; text-align: left; }
+.offer-price-list > div { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; padding: 12px 0; border-bottom: 1px solid var(--gold-soft); }
+.offer-price-list dt { color: #65543b; font-size: clamp(.67rem,2.8vw,.79rem); }
+.offer-price-list dd { margin: 0; color: var(--gold-deep); font: 600 clamp(1.1rem,4.5vw,1.5rem)/1.1 "Cormorant Garamond",Georgia,serif; white-space: nowrap; }
+.offer-note { margin: 12px 0 0; max-width: 280px; color: #7d633b; font-size: .68rem; line-height: 1.45; }
+.offer-monthly .services { max-width: 280px; gap: 12px; }
+.offer-drainage .page-kicker,.offer-monthly .page-kicker { margin-top: 14px; font-size: .62rem; letter-spacing: .15em; }
+.offer-drainage h2,.offer-monthly h2 { font-size: clamp(1.65rem,5.4vw,2.3rem); }
+.offer-drainage .gold-rule { margin-block: 12px; }
+.offer-drainage .offer-description { font-size: .72rem; line-height: 1.4; }
+.offer-drainage .offer-price-list { padding-top: 8px; }
+.offer-drainage .offer-price-list > div { padding-block: 9px; }
+.offer-drainage .offer-note { margin-top: 9px; font-size: .62rem; }
+.offer-monthly .services { font-size: clamp(.95rem,3.1vw,1.15rem); gap: 8px; }
 
 .book-controls { width: min(100%, 520px); display: grid; grid-template-columns: 48px 1fr 48px; align-items: center; gap: 14px; margin-top: 12px; }
 .nav-button, .tool-button { display: grid; place-items: center; padding: 0; border: 1px solid rgba(139,100,29,.28); color: var(--gold-deep); background: rgba(255,255,255,.82); cursor: pointer; }
@@ -242,6 +257,10 @@ button { touch-action: manipulation; }
   .offer h2 { font-size: 1.65rem; }
   .services { font-size: .98rem; }
   .price-block strong { font-size: 2.6rem; }
+  .offer-drainage .page-kicker { margin-top: 9px; margin-bottom: 8px; }
+  .offer-drainage .offer-price-list > div { padding-block: 7px; }
+  .offer-drainage .book-cta { min-height: 36px; margin-top: 10px; font-size: .6rem; }
+  .offer-drainage .page-brand { margin-top: 6px; font-size: .75rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {

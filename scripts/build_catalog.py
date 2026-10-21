@@ -78,8 +78,10 @@ def build_html(specs):
         if kind == 'service':
             service = spec['service']
             heading = f'<p class="catalog-eyebrow">{escape(service["category"])}</p><h2>{escape(name)}</h2>'
+            photo = (f'<figure class="catalog-photo"><img data-catalog-image data-src="./images/{service["image"]}" width="960" height="640" alt="{escape(service["alt"])}" decoding="async"><figcaption>Imagem ilustrativa de IA</figcaption></figure>'
+                     if service.get('showImage', True) else '<div class="catalog-divider" aria-hidden="true"></div>')
             body = f'''{heading}
-              <figure class="catalog-photo"><img data-catalog-image data-src="./images/{service['image']}" width="960" height="640" alt="{escape(service['alt'])}" decoding="async"><figcaption>Imagem ilustrativa de IA</figcaption></figure>
+              {photo}
               <p class="catalog-description">{escape(service['description'])}</p>
               {prices_html(service)}
               {('<p class="catalog-note">' + escape(service['note']) + '</p>') if service.get('note') else ''}
@@ -92,14 +94,14 @@ def build_html(specs):
             rows = ''.join(f'<tr><th scope="row">{escape(s["name"])}</th><td>{money(s["price"])}</td><td>{money(s["maintenance"])}</td></tr>' for s in DATA['services'][:7])
             body = f'''<p class="catalog-eyebrow">Escolha seu olhar</p><h2>Extensão de cílios</h2><p class="catalog-description">Todas as técnicas e os valores do catálogo original.</p>
               <table class="catalog-table"><thead><tr><th scope="col">Técnica</th><th scope="col">Aplicação</th><th scope="col">Manutenção</th></tr></thead><tbody>{rows}</tbody></table>
-              <p class="catalog-note">Nas próximas páginas, conheça uma representação ilustrativa de cada opção.</p>{bottom}'''
+              <p class="catalog-note">Nas próximas páginas, conheça os detalhes de cada técnica.</p>{bottom}'''
         elif kind == 'text':
             body = f'{heading}<div class="catalog-divider" aria-hidden="true"></div><div class="catalog-paragraphs">' + ''.join(f'<p>{escape(p)}</p>' for p in spec['paragraphs']) + f'</div>{bottom}'
         elif kind == 'notice':
             body = f'''<p class="catalog-eyebrow">Transparência e cuidado</p><h2>{escape(name)}</h2><div class="catalog-divider" aria-hidden="true"></div>
               <div class="catalog-paragraphs"><p>{escape(DATA['aiNotice'])}</p>
               <p>As imagens representam os procedimentos de forma aproximada. Não são registros de atendimentos ou resultados de clientes da Pri Beauty.</p>
-              <p>A fotografia da Pri foi preservada do catálogo original. A representação de Sirena é aproximada e a cena de peeling é genérica.</p></div>{bottom}'''
+              <p>A fotografia da Pri foi preservada do catálogo original. A cena de peeling é genérica.</p></div>{bottom}'''
         else:
             body = f'''<img class="contact-logo" src="../images/logo-pb-watermark.webp" width="1296" height="730" alt="Logo Pri Beauty">
               <p class="catalog-eyebrow">Será um prazer receber você</p><h2>Seu momento de cuidado</h2>
@@ -107,7 +109,8 @@ def build_html(specs):
               <p class="contact-phone">{escape(DATA['phone'])}</p><a class="contact-instagram" href="https://www.instagram.com/{DATA['instagram']}/" target="_blank" rel="noopener">@{escape(DATA['instagram'])}</a>
               <a class="book-cta catalog-booking" href="{booking('o catálogo completo')}" target="_blank" rel="noopener">Agendar pelo WhatsApp</a>{bottom}'''
         hard = ' data-density="hard"' if number == len(specs) - 1 else ''
-        rendered.append(f'<article class="book-page catalog-page catalog-{kind}" data-page="{number}"{hard} aria-label="{escape(name)}"><div class="catalog-page-inner"><span class="catalog-folio">{number:02d}</span>{body}</div></article>')
+        text_class = ' catalog-service-text' if kind == 'service' and not spec['service'].get('showImage', True) else ''
+        rendered.append(f'<article class="book-page catalog-page catalog-{kind}{text_class}" data-page="{number}"{hard} aria-label="{escape(name)}"><div class="catalog-page-inner"><span class="catalog-folio">{number:02d}</span>{body}</div></article>')
     output = re.sub(r'<article class="book-page cover"[\s\S]*?</article>[\s\S]*?(?=\s*</div>\s*<div class="viewer-loading")', '\n'.join(rendered), template, count=1)
     output = output.replace('Combos promocionais | Pri Beauty', 'Catálogo completo | Pri Beauty')
     output = output.replace('Conheça os combos promocionais da Pri Beauty.', 'Conheça todos os procedimentos, técnicas e valores da Pri Beauty.')
@@ -115,12 +118,12 @@ def build_html(specs):
     output = output.replace('Seleções especiais', 'Procedimentos e valores')
     output = output.replace('Deslize ou use as setas para conhecer cada combo.', 'Folheie o catálogo e encontre o cuidado ideal para você.')
     output = output.replace('aria-label="Catálogo de combos promocionais"', 'aria-label="Catálogo completo de procedimentos"')
-    output = output.replace('<span id="page-counter">1 / 6</span>', '<span id="page-counter">1 / 24</span>')
+    output = re.sub(r'<span id="page-counter">1 / \d+</span>', f'<span id="page-counter">1 / {len(specs)}</span>', output)
     output = output.replace('<div class="page-dots" id="page-dots" aria-label="Escolher página"></div>', '<div class="page-dots" id="page-dots" hidden></div><label class="catalog-select-label" for="page-select">Ir para a página</label><select id="page-select" class="catalog-page-select" aria-label="Ir para a página do catálogo"></select>')
     output = output.replace('Valores promocionais sujeitos à disponibilidade de agenda.', escape(DATA['aiNotice']))
     output = output.replace('<body>', '<body class="catalog-complete">')
-    output = output.replace('href="./styles.css?v=20261020-metal-1"', 'href="../combos/styles.css?v=20261020-catalog-1"')
-    output = output.replace('</head>', '  <link rel="stylesheet" href="./catalog.css?v=20261020-1">\n</head>')
+    output = re.sub(r'href="\./styles\.css\?v=[^"]+"', 'href="../combos/styles.css?v=20261021-offers-1"', output)
+    output = output.replace('</head>', '  <link rel="stylesheet" href="./catalog.css?v=20261021-text-1">\n</head>')
     output = output.replace('./vendor/page-flip.browser.js', '../combos/vendor/page-flip.browser.js')
     output = re.sub(r'src="\./script\.js\?v=[^"]+"', 'src="../combos/script.js?v=20261020-catalog-1"', output)
     output = output.replace('  </main>', '''    <nav class="catalog-downloads" aria-label="Arquivos do catálogo"><a href="./catalogo-pri-beauty.pdf" download>Baixar este catálogo em PDF</a><a href="./catalogo-original.pdf" target="_blank" rel="noopener">Ver PDF original</a><a href="../combos/">Ver combos promocionais</a></nav>\n  </main>''')
@@ -131,6 +134,8 @@ def build_html(specs):
 def optimize_assets():
     from PIL import Image
     for service in DATA['services']:
+        if not service.get('showImage', True):
+            continue
         raw = ROOT / 'tmp/imagegen' / f'{service["id"]}.png'
         target = PUBLIC / 'images' / service['image']
         if not raw.exists() and not target.exists():
@@ -208,17 +213,27 @@ def build_pdf(specs):
         elif kind == 'service':
             s = spec['service']
             y = title(s['name'], s['category'])
-            y = draw_photo(PUBLIC/'images'/s['image'], y, 145)
-            y = paragraph('Imagem ilustrativa de IA', y, 7, color=gold, align=TA_CENTER, gap=12)
-            y = paragraph(escape(s['description']), y, 10.8, gap=13)
+            illustrated = s.get('showImage', True)
+            if illustrated:
+                y = draw_photo(PUBLIC/'images'/s['image'], y, 145)
+                y = paragraph('Imagem ilustrativa de IA', y, 7, color=gold, align=TA_CENTER, gap=12)
+            else:
+                c.setStrokeColor(HexColor('#ceb478'))
+                c.line(170, 443, 250, 443)
+                y = 410
+            y = paragraph(escape(s['description']), y, 10.8 if illustrated else 13, align=TA_LEFT if illustrated else TA_CENTER, gap=13)
             rows = [('Aplicação',s['price']),('Manutenção',s['maintenance'])] if 'maintenance' in s else s.get('prices', [('Investimento',s.get('price'))])
             if 'maintenance' in s:
+                if not illustrated:
+                    c.setFillColor(HexColor('#f7eddc'))
+                    c.setStrokeColor(HexColor('#ddc79d'))
+                    c.roundRect(42, 175, 336, 92, 9, fill=1, stroke=1)
                 for x, (label, value) in zip([126,294], rows):
                     c.setFillColor(gold)
                     c.setFont('CatalogBody',8)
-                    c.drawCentredString(x,147,label.upper())
+                    c.drawCentredString(x,228 if not illustrated else 147,label.upper())
                     c.setFont('CatalogTitle',24)
-                    c.drawCentredString(x,119,money(value))
+                    c.drawCentredString(x,200 if not illustrated else 119,money(value))
                 y=105
             elif 'prices' not in s:
                 c.setFillColor(gold)
@@ -261,7 +276,7 @@ def build_pdf(specs):
             for text in spec['paragraphs']: y = paragraph(escape(text), y, 12)
         elif kind == 'notice':
             y = title(spec['name'], 'Transparência e cuidado')
-            for text in [DATA['aiNotice'], 'As imagens são representações aproximadas dos procedimentos. Não são registros de atendimentos ou resultados de clientes da Pri Beauty.', 'A fotografia da Pri foi preservada do original. A representação de Sirena é aproximada e a cena de peeling é genérica.', 'O formato dos olhos, as características dos fios e o tipo de pele são considerados na escolha do procedimento no atendimento.']:
+            for text in [DATA['aiNotice'], 'As imagens são representações aproximadas dos procedimentos. Não são registros de atendimentos ou resultados de clientes da Pri Beauty.', 'A fotografia da Pri foi preservada do original. A cena de peeling é genérica.', 'O formato dos olhos, as características dos fios e o tipo de pele são considerados na escolha do procedimento no atendimento.']:
                 y = paragraph(escape(text),y,12)
         else:
             y = title('Seu momento de cuidado', 'Será um prazer receber você')
@@ -285,7 +300,7 @@ def sync_deploy():
     for name in ['index.html', 'catalog.css', 'catalogo-pri-beauty.pdf', 'catalogo-original.pdf']:
         if (PUBLIC/name).exists(): shutil.copy2(PUBLIC/name,destination/name)
     shutil.copytree(PUBLIC/'images', destination/'images', dirs_exist_ok=True)
-    for name in ['script.js','styles.css']:
+    for name in ['index.html','script.js','styles.css']:
         shutil.copy2(ROOT/'combos'/name, ROOT/'dist/combos'/name)
 
 

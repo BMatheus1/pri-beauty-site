@@ -45,6 +45,12 @@
 .contact-instagram { font-size: 12px; text-underline-offset: 4px; }
 .catalog-notice .catalog-booking { margin-top: auto; }
 .catalog-contact .catalog-booking { margin-top: 12px; }
+.catalog-service-text h2 { margin-top: 20px; font-size: clamp(30px,7.6vw,42px); line-height: 1.06; }
+.catalog-service-text .catalog-divider { flex: 0 0 auto; margin: 14px 0 0; }
+.catalog-service-text .catalog-description { margin: auto 0 24px; max-width: 300px; font-size: clamp(13px,3.5vw,16px); line-height: 1.6; }
+.catalog-service-text .catalog-prices { flex: 0 0 auto; margin: 0 0 auto; padding: 22px 12px; border: 1px solid #ddc79d; border-radius: 9px; background: #f7eddc; }
+.catalog-service-text .catalog-price-list { margin: 0 0 auto; padding-top: 0; }
+.catalog-service-text .catalog-price-list > div { padding-block: 10px; border-bottom: 1px solid #ddc79d; }
 @media(max-width:350px){
   .catalog-page .catalog-page-inner { inset: 22px 22px 20px; }
   .catalog-page h2 { font-size: 22px; margin-bottom: 9px; }
@@ -65,4 +71,7 @@
   .contact-phone { margin-top: 12px; }
   .catalog-contact .contact-logo { display: none; }
   .catalog-contact .catalog-eyebrow { margin-top: 12px; }
+  .catalog-service-text h2 { font-size: 29px; margin-top: 14px; }
+  .catalog-service-text .catalog-description { font-size: 11px; margin-bottom: 18px; line-height: 1.5; }
+  .catalog-service-text .catalog-prices { padding: 17px 8px; }
 }

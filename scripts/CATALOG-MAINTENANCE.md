@@ -5,6 +5,7 @@ O endereço `/catalogo/` utiliza o mesmo StPageFlip, a mesma capa animada e a me
 ## Conteúdo
 
 - `scripts/catalog-content.json`: nomes, valores, textos, arquivos e textos alternativos.
+- `showImage: false` omite a fotografia do procedimento tanto no flipbook quanto no PDF. A seção de cílios (sete técnicas e remoção) usa apresentação tipográfica sem imagens.
 - `scripts/catalog-image-prompts.json`: prompts efetivamente usados com a ferramenta integrada `image_gen`; 16 fotografias distintas.
 - `public/catalogo/images/`: imagens WebP organizadas por categoria. `pri-original.webp` foi extraída do PDF fornecido, sem geração de identidade.
 - `public/catalogo/catalog.css`: apresentação das páginas de procedimentos.
@@ -18,7 +19,9 @@ Edite os dados e execute `scripts/build_catalog.py` com Python que tenha Pillow 
 
 O script atualiza o HTML, gera a nova edição PDF em `output/pdf/` e sincroniza os arquivos com `dist/catalogo/`. Use `--html-only` para atualizar o site sem regenerar o PDF. Para atualizar serviços ou preços, execute a geração completa para evitar diferenças entre o site e o download.
 
-O gerador exige as 16 imagens. Se houver novos PNGs em `tmp/imagegen/`, ele os converte para WebP de até 1200 pixels. Se não houver PNG, usa o WebP já salvo. As imagens não são geradas novamente durante builds ou visitas.
+O gerador exige apenas as imagens dos procedimentos com `showImage` habilitado. Se houver novos PNGs em `tmp/imagegen/`, ele os converte para WebP de até 1200 pixels. Se não houver PNG, usa o WebP já salvo. As imagens não são geradas novamente durante builds ou visitas.
+
+O catálogo de combos tem oito páginas: capa, cinco combos originais, drenagem linfática com os mesmos preços do catálogo completo e pacote mensal de extensão de cílios por R$ 150,00 (manutenção inclusa o mês todo e uma visita semanal sem custo adicional). Os botões de agendamento usam mensagens específicas. Ao alterar valores da drenagem, mantenha `combos/index.html` alinhado aos dados do catálogo; a validação verifica essa igualdade.
 
 A proporção permanece em 420 × 600. Em desktop há duas folhas; no celular, uma. A capa é importada do catálogo de combos durante a geração. Ao alterar CSS ou JavaScript compartilhado, atualize também os identificadores de versão nos links para invalidar cache.
 
@@ -36,4 +39,4 @@ Confira todas as páginas em 320, 390 e 1280 pixels; selecione páginas distante
 
 `python scripts/validate_catalog.py` verifica conteúdo, preços, cópias de publicação e integridade dos arquivos. `browser_catalog_qa.js` pode ser incluído com `defer`, depois do visualizador, numa cópia temporária do HTML para testar os limites de todas as páginas e cliques repetidos. O relatório fica em `#qa-result`. Não publique esse HTML de teste.
 
-Na revisão desta edição, as 24 páginas passaram nas larguras de 320, 390 e 1280 pixels, com zero fotos faltando e zero elementos fora dos limites. A navegação repetida permaneceu no primeiro destino solicitado. O console da página de produção local não registrou erros ou avisos. Esses testes não constituem uma medição de FPS.
+Na revisão de 21/10/2026, as 24 páginas do catálogo e as oito páginas de combos passaram nas larguras de 320, 390 e 1280 pixels, com zero fotos faltando e zero elementos fora dos limites. As oito páginas da seção de cílios não têm imagens no HTML nem no PDF; as nove fotografias restantes do catálogo continuam com carregamento progressivo. A navegação repetida permaneceu no primeiro destino solicitado. As 24 páginas do PDF foram renderizadas e revisadas. Esses testes não constituem uma medição de FPS.

@@ -4,6 +4,7 @@ import json
 import re
 from html.parser import HTMLParser
 from pathlib import Path
+from urllib.parse import parse_qs, urlparse
 
 from pypdf import PdfReader
 from PIL import Image
@@ -46,7 +47,12 @@ def main():
     parser = CatalogParser()
     parser.feed((SOURCE / 'index.html').read_text(encoding='utf-8'))
     assert parser.articles == 24, parser.articles
-    assert len(parser.images) == 17, len(parser.images)
+    expected_images = 1 + sum(s.get('showImage', True) for s in DATA['services'])
+    assert len(parser.images) == expected_images, len(parser.images)
+    html_source = (SOURCE / 'index.html').read_text(encoding='utf-8')
+    text_pages = re.findall(r'<article class="book-page catalog-page catalog-service catalog-service-text"[\s\S]*?</article>', html_source)
+    assert len(text_pages) == 8
+    assert all('<img' not in page and '<figure' not in page for page in text_pages)
     assert len(parser.bookings) == 17, len(parser.bookings)
     for item in parser.images:
         assert item.get('alt'), item
@@ -56,6 +62,7 @@ def main():
             assert im.width >= 600, path
     pdf = PdfReader(SOURCE / 'catalogo-pri-beauty.pdf')
     assert len(pdf.pages) == 24
+    assert all(not list(pdf.pages[i].images) for i in range(3, 11)), 'Lash pages must not contain images'
     assert len({(float(p.mediabox.width), float(p.mediabox.height)) for p in pdf.pages}) == 1
     pdf_text = normalize(' '.join(p.extract_text() for p in pdf.pages))
     html_text = normalize(' '.join(parser.text))
@@ -70,6 +77,24 @@ def main():
             assert text in html_text, (service['name'],text)
     assert DATA['aiNotice'] in pdf_text
     assert DATA['aiNotice'] in html_text
+    combos = CatalogParser()
+    combos_source = (ROOT / 'combos/index.html').read_text(encoding='utf-8')
+    combos.feed(combos_source)
+    assert combos.articles == 8
+    assert '1 / 8' in combos_source
+    drainage = re.search(r'<article[^>]+offer-drainage[\s\S]*?</article>', combos_source).group()
+    service = next(s for s in DATA['services'] if s['id'] == 'drenagem-linfatica')
+    for label, price in service['prices']:
+        assert label in drainage and f'R$ {price:.2f}'.replace('.', ',') in drainage
+    assert 'sessão adicional de brinde' in drainage
+    monthly = re.search(r'<article[^>]+offer-monthly[\s\S]*?</article>', combos_source).group()
+    assert '150,00' in monthly and 'Manutenção inclusa o mês todo' in monthly
+    assert '1 visita por semana, sem custo adicional' in monthly
+    monthly_link = next(url for url in combos.bookings if 'pacote%20mensal' in url)
+    message = parse_qs(urlparse(monthly_link).query)['text'][0]
+    assert all(text in message for text in ['R$ 150,00', 'uma visita por semana', 'sem custo adicional'])
+    for name in ['index.html', 'styles.css', 'script.js']:
+        assert digest(ROOT/'combos'/name) == digest(ROOT/'dist/combos'/name)
     assert digest(SOURCE/'catalogo-original.pdf') == '2ba8e959d689ae061f64898cf1f5df97a341b7194d37b49e7c47bb24c44f757c'
     for file in ['index.html','catalog.css','catalogo-pri-beauty.pdf','catalogo-original.pdf']:
         assert digest(SOURCE/file) == digest(DEPLOY/file), file
@@ -77,7 +102,7 @@ def main():
         assert digest(file) == digest(DEPLOY/file.relative_to(SOURCE)), file
     oversized = [str(p) for p in (ROOT/'dist').rglob('*') if p.is_file() and p.stat().st_size > 25*1024*1024]
     assert not oversized, oversized
-    print('PASS: 24 pages, 16 services, 17 images, 17 booking links, all prices, AI disclosure, original PDF hash, deployment copies and asset sizes.')
+    print(f'PASS: 24 catalog pages, {expected_images} images, 8 lash pages without images, 8 combo pages, drainage prices, monthly package terms and WhatsApp message, original PDF hash, deployment copies and asset sizes.')
 
 
 if __name__ == '__main__':
