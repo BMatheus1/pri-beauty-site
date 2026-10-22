@@ -33,7 +33,6 @@ def booking(name):
 def page_specs():
     specs = [
         {'kind': 'cover', 'name': 'Capa'},
-        {'kind': 'about', 'name': 'Conheça a Pri', 'paragraphs': DATA['about']},
         {'kind': 'lash-table', 'name': 'Extensão de cílios: valores'}
     ]
     specs.append({'kind': 'text', 'name': 'Design de sobrancelhas', 'eyebrow': 'Beleza em cada detalhe', 'paragraphs': DATA['browIntro']})
@@ -47,7 +46,7 @@ def page_specs():
         {'kind': 'notice', 'name': 'Sobre as imagens do catálogo'},
         {'kind': 'contact', 'name': 'Agendamento e pagamento'}
     ])
-    assert len(specs) == 16
+    assert len(specs) == 15
     return specs
 
 
@@ -102,7 +101,7 @@ def build_html(specs):
             body = f'''<p class="catalog-eyebrow">Transparência e cuidado</p><h2>{escape(name)}</h2><div class="catalog-divider" aria-hidden="true"></div>
               <div class="catalog-paragraphs"><p>{escape(DATA['aiNotice'])}</p>
               <p>As imagens representam os procedimentos de forma aproximada. Não são registros de atendimentos ou resultados de clientes da Pri Beauty.</p>
-              <p>A fotografia da Pri foi preservada do catálogo original. A cena de peeling é genérica.</p></div>{bottom}'''
+              <p>A cena de peeling é genérica.</p></div>{bottom}'''
         else:
             body = f'''<img class="contact-logo" src="../images/logo-pb-watermark.webp" width="1296" height="730" alt="Logo Pri Beauty">
               <p class="catalog-eyebrow">Será um prazer receber você</p><h2>Seu momento de cuidado</h2>
@@ -127,7 +126,7 @@ def build_html(specs):
     output = re.sub(r'href="\./styles\.css\?v=[^"]+"', 'href="../combos/styles.css?v=20261021-offers-1"', output)
     output = output.replace('</head>', '  <link rel="stylesheet" href="./catalog.css?v=20261021-summary-1">\n</head>')
     output = output.replace('./vendor/page-flip.browser.js', '../combos/vendor/page-flip.browser.js')
-    output = re.sub(r'src="\./script\.js\?v=[^"]+"', 'src="../combos/script.js?v=20261020-catalog-1"', output)
+    output = re.sub(r'src="\./script\.js\?v=[^"]+"', 'src="../combos/script.js?v=20261021-last-page-1"', output)
     output = output.replace('  </main>', '''    <nav class="catalog-downloads" aria-label="Arquivos do catálogo"><a href="./catalogo-pri-beauty.pdf" download>Baixar este catálogo em PDF</a><a href="./catalogo-original.pdf" target="_blank" rel="noopener">Ver PDF original</a><a href="../combos/">Ver combos promocionais</a></nav>\n  </main>''')
     output = '\n'.join(line.rstrip() for line in output.splitlines()) + '\n'
     (PUBLIC / 'index.html').write_text(output, encoding='utf-8')
@@ -288,7 +287,7 @@ def build_pdf(specs):
             for text in spec['paragraphs']: y = paragraph(escape(text), y, 12)
         elif kind == 'notice':
             y = title(spec['name'], 'Transparência e cuidado')
-            for text in [DATA['aiNotice'], 'As imagens são representações aproximadas dos procedimentos. Não são registros de atendimentos ou resultados de clientes da Pri Beauty.', 'A fotografia da Pri foi preservada do original. A cena de peeling é genérica.', 'O formato dos olhos, as características dos fios e o tipo de pele são considerados na escolha do procedimento no atendimento.']:
+            for text in [DATA['aiNotice'], 'As imagens são representações aproximadas dos procedimentos. Não são registros de atendimentos ou resultados de clientes da Pri Beauty.', 'A cena de peeling é genérica.', 'O formato dos olhos, as características dos fios e o tipo de pele são considerados na escolha do procedimento no atendimento.']:
                 y = paragraph(escape(text),y,12)
         else:
             y = title('Seu momento de cuidado', 'Será um prazer receber você')

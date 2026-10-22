@@ -36,10 +36,10 @@ Referências de características visuais consultadas: [fios 4D em W](https://nag
 
 ## Verificação antes de publicar
 
-Confira todas as páginas em 320, 390 e 1280 pixels; selecione páginas distantes; teste setas, gestos, zoom e agendamento. Renderize e revise as 16 páginas do PDF. Nenhum asset de `dist` pode ultrapassar 25 MiB. Valide que o SHA-256 do PDF original ainda coincide com o arquivo fornecido.
+Confira todas as páginas em 320, 390 e 1280 pixels; selecione páginas distantes; teste setas, gestos, zoom e agendamento. Renderize e revise as 15 páginas do PDF. Nenhum asset de `dist` pode ultrapassar 25 MiB. Valide que o SHA-256 do PDF original ainda coincide com o arquivo fornecido.
 
 `python scripts/validate_catalog.py` verifica conteúdo, preços, cópias de publicação e integridade dos arquivos. `browser_catalog_qa.js` pode ser incluído com `defer`, depois do visualizador, numa cópia temporária do HTML para testar os limites de todas as páginas e cliques repetidos. O relatório fica em `#qa-result`. Não publique esse HTML de teste.
 
-O catálogo tem 16 páginas após a consolidação da seção de cílios. As nove fotografias restantes continuam com carregamento progressivo. A validação exige uma única página de cílios no HTML e no PDF, sem imagens, mantendo todos os valores originais. As regras de apresentação do peeling usam o identificador do serviço, sem depender do número da página.
+O catálogo tem 15 páginas após a consolidação da seção de cílios e a remoção da página “Conheça a Pri”. As oito fotografias restantes continuam com carregamento progressivo. A apresentação da Pri na página principal do site permanece independente do catálogo. A validação exige uma única página de cílios no HTML e no PDF, sem imagens, mantendo todos os valores originais. As regras de apresentação do peeling usam o identificador do serviço, sem depender do número da página.
 
 A consolidação foi revisada em 320, 390 e 1280 pixels, sem elementos fora dos limites e sem imagens ausentes. As 16 páginas do PDF foram renderizadas para revisão visual; o PDF original mantém o mesmo SHA-256.

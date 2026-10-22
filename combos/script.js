@@ -139,7 +139,8 @@ function updateControls(pageIndex = currentPage) {
   counter.textContent = `${currentPage + 1} / ${pages.length}`;
   counter.setAttribute('aria-label', `Página ${currentPage + 1} de ${pages.length}`);
   previousButton.disabled = currentPage === 0 || controlsLocked;
-  nextButton.disabled = currentPage === pages.length - 1 || controlsLocked;
+  const lastVisiblePage = currentPage + (currentPage > 0 && pageFlip?.getOrientation() === 'landscape' ? 1 : 0);
+  nextButton.disabled = lastVisiblePage >= pages.length - 1 || controlsLocked;
   if (pageSelect) {
     pageSelect.value = String(currentPage);
     pageSelect.disabled = controlsLocked;
@@ -177,7 +178,7 @@ async function goToPage(index) {
 }
 
 function flipNext() {
-  if (!canNavigate() || currentPage >= pages.length - 1) return;
+  if (!canNavigate() || nextButton.disabled) return;
   setViewerState('flipping');
   lockNavigation();
   pageFlip.flipNext('bottom');
