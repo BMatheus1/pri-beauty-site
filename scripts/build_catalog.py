@@ -36,7 +36,6 @@ def page_specs():
         {'kind': 'about', 'name': 'Conheça a Pri', 'paragraphs': DATA['about']},
         {'kind': 'lash-table', 'name': 'Extensão de cílios: valores'}
     ]
-    specs.extend({'kind': 'service', 'name': s['name'], 'service': s} for s in DATA['services'][:8])
     specs.append({'kind': 'text', 'name': 'Design de sobrancelhas', 'eyebrow': 'Beleza em cada detalhe', 'paragraphs': DATA['browIntro']})
     specs.extend({'kind': 'service', 'name': s['name'], 'service': s} for s in DATA['services'][8:12])
     specs.extend([
@@ -48,7 +47,7 @@ def page_specs():
         {'kind': 'notice', 'name': 'Sobre as imagens do catálogo'},
         {'kind': 'contact', 'name': 'Agendamento e pagamento'}
     ])
-    assert len(specs) == 24
+    assert len(specs) == 16
     return specs
 
 
@@ -92,9 +91,11 @@ def build_html(specs):
               <div class="catalog-paragraphs">{''.join(f'<p>{escape(p)}</p>' for p in spec['paragraphs'])}</div>{bottom}'''
         elif kind == 'lash-table':
             rows = ''.join(f'<tr><th scope="row">{escape(s["name"])}</th><td>{money(s["price"])}</td><td>{money(s["maintenance"])}</td></tr>' for s in DATA['services'][:7])
-            body = f'''<p class="catalog-eyebrow">Escolha seu olhar</p><h2>Extensão de cílios</h2><p class="catalog-description">Todas as técnicas e os valores do catálogo original.</p>
+            removal = SERVICES['remocao-cilios']
+            body = f'''<p class="catalog-eyebrow">Técnicas e valores</p><h2>Extensão de cílios</h2>
               <table class="catalog-table"><thead><tr><th scope="col">Técnica</th><th scope="col">Aplicação</th><th scope="col">Manutenção</th></tr></thead><tbody>{rows}</tbody></table>
-              <p class="catalog-note">Nas próximas páginas, conheça os detalhes de cada técnica.</p>{bottom}'''
+              <aside class="catalog-removal" aria-label="Valores da remoção de cílios"><strong>Remoção de cílios</strong><span>De outro(a) profissional: {money(removal['prices'][0][1])}</span><span>Do meu procedimento: {money(removal['prices'][1][1])}</span></aside>
+              <a class="book-cta catalog-booking" href="{booking('Extensão de cílios')}" target="_blank" rel="noopener">Agendar cílios</a>{bottom}'''
         elif kind == 'text':
             body = f'{heading}<div class="catalog-divider" aria-hidden="true"></div><div class="catalog-paragraphs">' + ''.join(f'<p>{escape(p)}</p>' for p in spec['paragraphs']) + f'</div>{bottom}'
         elif kind == 'notice':
@@ -110,7 +111,8 @@ def build_html(specs):
               <a class="book-cta catalog-booking" href="{booking('o catálogo completo')}" target="_blank" rel="noopener">Agendar pelo WhatsApp</a>{bottom}'''
         hard = ' data-density="hard"' if number == len(specs) - 1 else ''
         text_class = ' catalog-service-text' if kind == 'service' and not spec['service'].get('showImage', True) else ''
-        rendered.append(f'<article class="book-page catalog-page catalog-{kind}{text_class}" data-page="{number}"{hard} aria-label="{escape(name)}"><div class="catalog-page-inner"><span class="catalog-folio">{number:02d}</span>{body}</div></article>')
+        service_attr = f' data-service="{escape(spec["service"]["id"])}"' if kind == 'service' else ''
+        rendered.append(f'<article class="book-page catalog-page catalog-{kind}{text_class}" data-page="{number}"{service_attr}{hard} aria-label="{escape(name)}"><div class="catalog-page-inner"><span class="catalog-folio">{number:02d}</span>{body}</div></article>')
     output = re.sub(r'<article class="book-page cover"[\s\S]*?</article>[\s\S]*?(?=\s*</div>\s*<div class="viewer-loading")', '\n'.join(rendered), template, count=1)
     output = output.replace('Combos promocionais | Pri Beauty', 'Catálogo completo | Pri Beauty')
     output = output.replace('Conheça os combos promocionais da Pri Beauty.', 'Conheça todos os procedimentos, técnicas e valores da Pri Beauty.')
@@ -123,7 +125,7 @@ def build_html(specs):
     output = output.replace('Valores promocionais sujeitos à disponibilidade de agenda.', escape(DATA['aiNotice']))
     output = output.replace('<body>', '<body class="catalog-complete">')
     output = re.sub(r'href="\./styles\.css\?v=[^"]+"', 'href="../combos/styles.css?v=20261021-offers-1"', output)
-    output = output.replace('</head>', '  <link rel="stylesheet" href="./catalog.css?v=20261021-text-1">\n</head>')
+    output = output.replace('</head>', '  <link rel="stylesheet" href="./catalog.css?v=20261021-summary-1">\n</head>')
     output = output.replace('./vendor/page-flip.browser.js', '../combos/vendor/page-flip.browser.js')
     output = re.sub(r'src="\./script\.js\?v=[^"]+"', 'src="../combos/script.js?v=20261020-catalog-1"', output)
     output = output.replace('  </main>', '''    <nav class="catalog-downloads" aria-label="Arquivos do catálogo"><a href="./catalogo-pri-beauty.pdf" download>Baixar este catálogo em PDF</a><a href="./catalogo-original.pdf" target="_blank" rel="noopener">Ver PDF original</a><a href="../combos/">Ver combos promocionais</a></nav>\n  </main>''')
@@ -271,6 +273,16 @@ def build_pdf(specs):
                 c.setStrokeColor(HexColor('#e3d3b1'))
                 c.line(42,y-12,378,y-12)
                 y -= 42
+            removal = SERVICES['remocao-cilios']
+            y = paragraph('Remoção de cílios', y-5, 12, 'CatalogTitle', gold, align=TA_CENTER, gap=5)
+            for label, value in removal['prices']:
+                y = paragraph(f'{escape(label)}: <b>{money(value)}</b>', y, 9, color=gold, align=TA_CENTER, gap=4)
+            c.linkURL(booking('Extensão de cílios'), (92, 35, 328, 64), relative=0)
+            c.setFillColor(gold)
+            c.roundRect(92, 35, 236, 29, 14, fill=1, stroke=0)
+            c.setFillColor(HexColor('#ffffff'))
+            c.setFont('CatalogBold', 9)
+            c.drawCentredString(210, 46, 'AGENDAR CÍLIOS')
         elif kind == 'text':
             y = title(spec['name'], spec['eyebrow'])
             for text in spec['paragraphs']: y = paragraph(escape(text), y, 12)

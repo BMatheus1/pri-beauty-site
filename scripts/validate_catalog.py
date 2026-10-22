@@ -46,14 +46,17 @@ class CatalogParser(HTMLParser):
 def main():
     parser = CatalogParser()
     parser.feed((SOURCE / 'index.html').read_text(encoding='utf-8'))
-    assert parser.articles == 24, parser.articles
+    assert parser.articles == 16, parser.articles
     expected_images = 1 + sum(s.get('showImage', True) for s in DATA['services'])
     assert len(parser.images) == expected_images, len(parser.images)
     html_source = (SOURCE / 'index.html').read_text(encoding='utf-8')
-    text_pages = re.findall(r'<article class="book-page catalog-page catalog-service catalog-service-text"[\s\S]*?</article>', html_source)
-    assert len(text_pages) == 8
-    assert all('<img' not in page and '<figure' not in page for page in text_pages)
-    assert len(parser.bookings) == 17, len(parser.bookings)
+    lash_pages = re.findall(r'<article class="book-page catalog-page catalog-lash-table"[\s\S]*?</article>', html_source)
+    assert len(lash_pages) == 1
+    assert '<img' not in lash_pages[0] and '<figure' not in lash_pages[0]
+    assert 'Nas próximas páginas' not in lash_pages[0]
+    assert 'catalog-service-text' not in html_source, 'Individual lash pages must be omitted'
+    assert re.findall(r'data-page="(\d+)"', html_source) == [str(i) for i in range(16)]
+    assert len(parser.bookings) == 10, len(parser.bookings)
     for item in parser.images:
         assert item.get('alt'), item
         path = SOURCE / item['data-src']
@@ -61,8 +64,11 @@ def main():
         with Image.open(path) as im:
             assert im.width >= 600, path
     pdf = PdfReader(SOURCE / 'catalogo-pri-beauty.pdf')
-    assert len(pdf.pages) == 24
-    assert all(not list(pdf.pages[i].images) for i in range(3, 11)), 'Lash pages must not contain images'
+    assert len(pdf.pages) == 16
+    assert not list(pdf.pages[2].images), 'Lash summary must not contain images'
+    lash_pdf = normalize(pdf.pages[2].extract_text())
+    for service in DATA['services'][:8]:
+        assert service['name'] in lash_pdf and service['name'] in lash_pages[0], service['name']
     assert len({(float(p.mediabox.width), float(p.mediabox.height)) for p in pdf.pages}) == 1
     pdf_text = normalize(' '.join(p.extract_text() for p in pdf.pages))
     html_text = normalize(' '.join(parser.text))
@@ -102,7 +108,7 @@ def main():
         assert digest(file) == digest(DEPLOY/file.relative_to(SOURCE)), file
     oversized = [str(p) for p in (ROOT/'dist').rglob('*') if p.is_file() and p.stat().st_size > 25*1024*1024]
     assert not oversized, oversized
-    print(f'PASS: 24 catalog pages, {expected_images} images, 8 lash pages without images, 8 combo pages, drainage prices, monthly package terms and WhatsApp message, original PDF hash, deployment copies and asset sizes.')
+    print(f'PASS: 16 catalog pages, one lash summary without images or duplicate pages, {expected_images} images, all service prices, 8 combo pages, monthly package terms, original PDF hash and deployment copies.')
 
 
 if __name__ == '__main__':
