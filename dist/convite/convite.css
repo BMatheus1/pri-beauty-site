@@ -164,3 +164,5 @@ body{background:radial-gradient(ellipse at 35% 30%,#fffefa 0,#f7f4ee 63%,#f1ece3
 @media(max-width:375px){#card .card-inner:before{inset:10px}#card .card-inner:after{inset:16px;background-size:37px 37px}}
 @media(forced-colors:active){#card .brands h2,#card .brands h3{background:none;color:CanvasText}}
 
+
+#intro #open{display:flex;flex-direction:column;gap:5px;width:max-content;max-width:100%;margin:22px auto 12px;padding:10px 22px;font-size:12px;position:relative;z-index:7}#intro #open span{font-size:25px;line-height:1}#intro #stage{margin-top:10px}
