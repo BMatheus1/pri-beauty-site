@@ -114,3 +114,53 @@ body{background:radial-gradient(ellipse at 35% 30%,#fffefa 0,#f7f4ee 63%,#f1ece3
 .invitation-mask .card-inner:before,.invitation-mask .card-inner:after,.invitation-mask .card-inner>*:not(.handoff-paper){opacity:var(--print-opacity,1)}
 .handoff-paper{position:absolute;left:-1px;top:-1px;width:calc(100% + 2px);height:auto;z-index:2;pointer-events:none;display:block}
 @media(max-width:375px){#card{font-size:15px}#card .brands h2,#card .brands h3{font-size:28px;letter-spacing:.7px}}
+
+.invitation-actions{display:flex;flex-direction:column;align-items:center;gap:12px;margin-top:24px}.invitation-actions .primary{margin:0;max-width:100%;box-sizing:border-box}
+
+/* Message sheet: white cotton paper, blind-embossed double frame and pale gold ink. */
+#card .card-inner{background-color:#fffefa;background-image:linear-gradient(#fffffff0,#fffffff0),url('./assets/pearl-paper.webp');background-size:auto,320px;border:1px solid #eeece6;outline:none;border-radius:0;padding:clamp(40px,8vw,76px) clamp(28px,7vw,68px);box-shadow:0 1px 1px #fff inset,0 2px 3px #72645212,0 18px 48px #72645212;color:#787268}
+#card .card-inner:before,#card .card-inner:after{content:'';position:absolute;inset:15px;width:auto;height:auto;background:none;transform:none;border:1px solid #e9e7e1;box-shadow:1px 1px 0 #fff,inset 1px 1px 1px #fff;pointer-events:none}
+#card .card-inner:after{inset:21px;border-color:#eeece7;box-shadow:-1px -1px 1px #d8d5ce35,inset 1px 1px 0 #fff}
+#card .brands h2,#card .brands h3{font-style:italic;font-size:clamp(29px,5.3vw,43px);font-weight:400;letter-spacing:.4px;color:#b5a079;line-height:1.2}
+#card .brands .amp{color:#c0ad88;font-size:46px;margin:13px 0;font-weight:400}
+#card .eyebrow,#card h3{color:#a28d68;font-weight:400;letter-spacing:1.5px}
+#card .eyebrow{font-size:15px}
+#card .ornament{width:90px;background:linear-gradient(90deg,transparent,#d7cbb3,transparent);margin:29px auto}
+#card .date,#card .location{border-color:#e9e4d9}
+#card .date strong{color:#b5a079;font-weight:400}
+#card .date time span{color:#a28d68}
+#card .personal{color:#91887a}
+#card .closing{color:#b09a74;font-style:italic;font-size:33px}
+#card .card-inner>p:last-child{color:#938571}
+#card .card-inner .primary{background:#fcfaf5;border:1px solid #d8ccb6;border-radius:0;color:#95805c;font-size:11px;letter-spacing:.6px;box-shadow:0 1px 0 #fff inset}
+#card .card-inner .primary:hover{background:#f4efe5;border-color:#bba780}
+.invitation-mask #card .card-inner{background-color:var(--sheet-paper,#fffefa);background-image:linear-gradient(rgb(255 255 255 / .03),rgb(255 255 255 / .03));border-color:rgb(238 236 230 / var(--edge-opacity,1));box-shadow:0 var(--sheet-shadow,0px) 25px rgb(89 72 61 / var(--shadow-opacity,.12))}
+@media(max-width:375px){#card .card-inner{padding:38px 27px}#card .card-inner:before{inset:11px}#card .card-inner:after{inset:16px}#card .brands h2,#card .brands h3{font-size:29px}#card .eyebrow{font-size:14px;letter-spacing:1px}}
+
+/* Reference-led calligraphic stationery, scoped exclusively to the message sheet. */
+#card .card-inner{padding:58px clamp(30px,7vw,72px);background-image:linear-gradient(#fffefbe8,#fffefbe8),url('./assets/pearl-paper.webp');border:1px solid #e8e5df;box-shadow:0 2px 0 #e3ded4,0 14px 38px #6f61551a;color:#79766e;font-family:Montserrat,Arial,sans-serif;font-size:12px;line-height:2;letter-spacing:.25px}
+#card .card-inner:before{inset:14px;border:1px solid #ddd9d0;box-shadow:1px 1px 0 #fff,inset 1px 1px 2px #fff}
+#card .card-inner:after{inset:21px;border:1px solid #e6e2da;box-shadow:1px 1px 0 #fff,inset 1px 1px 1px #fff}
+#card .brands h2,#card .brands h3{font-family:'Great Vibes','Cormorant Garamond',cursive;font-style:normal;font-size:clamp(40px,7vw,59px);line-height:1.4;letter-spacing:0;color:#b8a47b;font-weight:400;text-transform:none}
+#card .brands .amp{font:italic 38px/1 'Cormorant Garamond',Georgia,serif;margin:9px 0;color:#b8a47b}
+#card .eyebrow,#card h3{font-family:Montserrat,Arial,sans-serif;font-size:11px;line-height:1.9;letter-spacing:1.8px;color:#a08d68;font-weight:500}
+#card .date strong{font:400 82px/1.15 'Cormorant Garamond',Georgia,serif;color:#b4a078}
+#card .date time span{font:400 31px/1.5 'Great Vibes',cursive;letter-spacing:0;color:#b4a078}
+#card .closing{font:400 38px/1.4 'Great Vibes',cursive;color:#b4a078;letter-spacing:0}
+#card .personal{font-family:'Cormorant Garamond',Georgia,serif;font-size:17px;line-height:1.7;color:#928875}
+#card .card-inner>p:last-child{font:400 13px/1.9 Montserrat,Arial,sans-serif;color:#918572}
+#card .card-inner>p:last-child strong{font:500 11px/1.9 Montserrat,Arial,sans-serif;letter-spacing:1px}
+#card .date,#card .location{border-color:#e7e1d5;padding:25px 0}
+#card .ornament{width:110px;margin:26px auto 32px}
+#card .card-inner .primary{font-size:10px;letter-spacing:.7px;background:#faf8f2;border-color:#d9cdb8;padding:13px 18px}
+@media(max-width:375px){#card .card-inner{padding:46px 29px;font-size:11px}#card .brands h2,#card .brands h3{font-size:37px}#card .eyebrow,#card h3{font-size:10px;letter-spacing:1.3px}#card .closing{font-size:34px}}
+
+/* Champagne foil frame and a quiet reflective paper finish, message sheet only. */
+#card .card-inner{border-color:#c7aa70;background-color:#fffefa;background-image:linear-gradient(116deg,transparent 8%,#fff9 24%,#e8dfcc33 34%,#fff9 43%,transparent 55%,#eadfc529 69%,#ffffffb8 79%,transparent 91%),linear-gradient(#fffdf9eb,#fffdf9eb),url('./assets/pearl-paper.webp');background-size:100% 100%,100% 100%,320px;box-shadow:inset 0 0 0 1px #fff9e5,inset 0 0 24px #cfb77912,0 2px 0 #c9b789,0 17px 45px #6f61551a}
+#card .card-inner:before{inset:12px;border:2px solid #bea066;border-image:linear-gradient(135deg,#94723d,#f0ddb0 17%,#b89453 34%,#e9d4a0 51%,#a27d40 73%,#ead5a4) 1;box-shadow:1px 1px 0 #fff8e5,inset 1px 1px 0 #fff8e5;background:none}
+#card .card-inner:after{inset:19px;border:1px solid #ccb584;box-shadow:0 0 0 2px #ffffff8c,inset 0 0 0 1px #fff9e8;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cg fill='none' stroke='%23b89a5e' stroke-width='.85'%3E%3Cpath d='M4 56V4h52M9 41V9h32M9 26C28 26 26 9 26 9M13 32C35 32 32 13 32 13M14 14c10-5 11 8 3 7-6-1-5-9 2-10M7 47c6-5 11-5 15-2M47 7c-5 6-5 11-2 15'/%3E%3Cpath d='M28 28l4-4 4 4-4 4z'/%3E%3C/g%3E%3C/svg%3E"),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cg transform='translate(64 0) scale(-1 1)' fill='none' stroke='%23b89a5e' stroke-width='.85'%3E%3Cpath d='M4 56V4h52M9 41V9h32M9 26C28 26 26 9 26 9M13 32C35 32 32 13 32 13M14 14c10-5 11 8 3 7-6-1-5-9 2-10M7 47c6-5 11-5 15-2M47 7c-5 6-5 11-2 15M28 28l4-4 4 4-4 4z'/%3E%3C/g%3E%3C/svg%3E");background-position:left top,right top;background-size:48px 48px;background-repeat:no-repeat}
+#card .brands h2,#card .brands h3,#card .closing{color:#aa8a51;text-shadow:0 1px 0 #fff8e2}
+@supports(background-clip:text){#card .brands h2,#card .brands h3{background:linear-gradient(110deg,#96733d 8%,#cfb77d 32%,#9d7a43 49%,#d4bf8b 63%,#9d7a43 85%);background-clip:text;-webkit-background-clip:text;color:transparent;text-shadow:none}}
+@media(max-width:375px){#card .card-inner:before{inset:10px}#card .card-inner:after{inset:16px;background-size:37px 37px}}
+@media(forced-colors:active){#card .brands h2,#card .brands h3{background:none;color:CanvasText}}
+
