@@ -1,0 +1,116 @@
+:root{--paper:#f8f5f0;--gold:#c5a46d;--ink:#59483d;--cream:#fffcf8}*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 50% 35%,#e7d6b540,transparent 65%),var(--paper);color:var(--ink);font:400 14px/1.9 Montserrat,Arial,sans-serif}button,a{-webkit-tap-highlight-color:transparent}button{font:inherit;color:inherit;cursor:pointer}a{color:inherit;text-decoration:none}button:focus-visible,a:focus-visible{outline:3px solid #96713c;outline-offset:5px}[hidden]{display:none!important}header{max-width:1160px;margin:auto;display:flex;justify-content:space-between;align-items:center;padding:24px;gap:16px;font-size:11px}header span{letter-spacing:2px;font-size:9px}main{max-width:900px;margin:auto;padding:20px 20px 60px}#intro{text-align:center;min-height:75svh}.eyebrow{font-size:10px;font-weight:500;letter-spacing:2px}h1,h2,.closing{font-family:'Cormorant Garamond',Georgia,serif;font-weight:400}h1{font-size:clamp(36px,6vw,60px);line-height:1.12;margin:30px 0 0}h1 em{font-weight:400;color:#967744}#stage{height:clamp(260px,48vw,390px);position:relative;max-width:660px;margin:0 auto}#scene{position:absolute;inset:0;pointer-events:none}canvas{width:100%;height:100%;display:block}#envelope{position:absolute;inset:0;width:100%;border:0;background:none;display:grid;place-items:center}.paper{position:relative;display:block;width:72%;height:54%;background:linear-gradient(145deg,#fffdf9,#e8dfd0);box-shadow:0 25px 35px #59483d25,inset 0 0 0 1px #fff;border-radius:4px;perspective:800px}.flap{position:absolute;inset:0;clip-path:polygon(0 0,100% 0,50% 66%);background:linear-gradient(#fffaf1,#e5d8bf);transform-origin:top;transition:transform 1s}.seal{position:absolute;top:65%;left:0;right:0;font-family:Georgia;letter-spacing:5px;font-size:16px;color:#a78c60}.webgl .paper{visibility:hidden}.primary{display:inline-flex;align-items:center;justify-content:center;gap:24px;min-height:50px;padding:14px 25px;border:1px solid #c5a46d;background:linear-gradient(120deg,#e7d6b5,#f6edde);border-radius:3px;font-size:12px;letter-spacing:.3px}.primary:hover{background:#e7d6b5}.primary:disabled{cursor:wait;opacity:.7}#status{font-size:10px;min-height:24px;color:#856f58;margin:18px 0}#card{max-width:670px;margin:20px auto;text-align:center}.card-inner{background:var(--cream);padding:clamp(24px,7vw,64px);border:1px solid #d5bf98;outline:1px solid #e7d6b5;outline-offset:7px;box-shadow:0 20px 70px #59483d0c;position:relative}.card-inner:before,.card-inner:after{content:'✧';position:absolute;top:8px;left:14px;color:var(--gold);font-size:25px}.card-inner:after{left:auto;right:14px}.brands h2{font-size:clamp(34px,6vw,50px);letter-spacing:4px;line-height:1.2;margin:0}.brands p{font-size:10px;font-style:italic;margin:8px 0}.amp{font-family:Georgia;font-style:italic;font-size:34px;color:var(--gold)}h3{font-size:12px;font-weight:500;letter-spacing:1.3px;line-height:1.8}.ornament{color:var(--gold);margin:30px auto}.card-inner>p{margin:20px 0}.date{margin:34px 0;padding:25px 0;border-block:1px solid #e7d6b5}.date time{display:flex;flex-direction:column}.date strong{font:500 100px/1.1 'Cormorant Garamond',Georgia,serif;color:#a4834f}.date time span{font-size:11px;letter-spacing:3px}.date p:last-child{margin-bottom:0}.location{margin:35px 0;padding:25px 0;border-block:1px solid #e7d6b5}.location .primary{margin:8px 0}.personal{font-size:11px}.closing{font-size:29px;line-height:1.2}strong{font-weight:500}.controls{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:34px}.controls button{border:1px solid #d5bf98;background:transparent;border-radius:3px;padding:12px 18px;font-size:11px;min-height:46px}#share-status{font-size:11px}footer{text-align:center;font-size:8px;letter-spacing:1px;padding:24px}footer span{padding:0 10px;color:var(--gold)}@media(max-width:375px){header{padding:18px 15px}header span{letter-spacing:1px;font-size:8px}main{padding-inline:16px}.eyebrow{letter-spacing:1px;font-size:9px}.card-inner{padding:26px 18px}.primary{gap:12px;padding:14px 16px}}@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+/* The HTML sheet remains one object from extraction through reading. */
+.invitation-mask{position:fixed;inset:0;z-index:5;pointer-events:none;overflow:hidden;isolation:isolate}.invitation-mask #card{max-width:none;will-change:transform;backface-visibility:hidden}.invitation-mask .card-inner{box-shadow:0 var(--sheet-shadow,12px) 35px #59483d30;background:linear-gradient(170deg,#fffefb,#fffcf8 40%,#f6f0e6)}.invitation-mask .controls,.invitation-mask #share-status{visibility:hidden}.extracting{overflow:hidden}.extracting #scene{z-index:6;overflow:visible}.extracting #stage{z-index:6;will-change:transform}.extracting #open,.extracting #status{visibility:hidden}.extracting #envelope{pointer-events:none}#stage:after{content:'';position:absolute;width:62%;height:14%;left:19%;top:72%;background:radial-gradient(ellipse,#59483d24,transparent 68%);filter:blur(8px);z-index:-1;pointer-events:none}.extracting #card{outline:none}
+
+.extracting #stage{z-index:4}.extracting #scene{z-index:4}.extracting .flap{transition:none}
+
+/* White paper and muted gold; both partner names use the same type scale. */
+:root{--paper:#ffffff;--cream:#ffffff;--gold:#bb9655;--ink:#65543b}
+body{background:radial-gradient(ellipse at 50% 34%,#fbf6e9 0,#ffffff 63%);color:var(--ink)}
+h1 em{color:#a78345}.eyebrow{color:#8b6c36}
+.brands h2,.brands h3{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(28px,5.3vw,42px);font-weight:400;line-height:1.16;letter-spacing:1.1px;margin:0;color:#9b773c;text-wrap:balance}
+.brands p{color:#8a734e;font-size:10px;letter-spacing:.3px;margin-top:12px}.brands .amp{display:block;color:#c7a66b;font-size:35px;line-height:1.25;margin:17px 0}
+.card-inner{background:#ffffff;border-color:#d9c394;outline-color:#eee0c3;box-shadow:0 20px 70px #a7834510}
+.card-inner:before,.card-inner:after{content:'❧';color:#c7a66b;font-size:24px;top:9px}.card-inner:after{transform:scaleX(-1)}
+.invitation-mask .card-inner{background:linear-gradient(165deg,#ffffff,#ffffff 70%,#fffdf7);box-shadow:0 var(--sheet-shadow,12px) 35px #8e75452b}
+.primary{background:linear-gradient(115deg,#f7edda,#fff9ed);border-color:#c7a46a;color:#71572f;border-radius:5px}.primary:hover{background:#f5e9ce}.controls button{border-color:#dbc69d;border-radius:5px}.date,.location{border-color:#ecdfc6}.date strong{color:#ac8848}.paper{background:linear-gradient(145deg,#fff,#f8f5ed)}.flap{background:linear-gradient(#fff,#f4edde)}
+@media(max-width:375px){.brands h2,.brands h3{font-size:28px;letter-spacing:.7px}}
+#card:focus{outline:none}
+.card-inner:before,.card-inner:after{content:'';width:30px;height:30px;top:12px;background:center/contain no-repeat url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cg fill='none' stroke='%23c7a66b' stroke-width='1'%3E%3Cpath d='M7 35Q9 12 32 7M11 25Q1 19 9 13Q17 19 11 25ZM17 17Q14 5 23 4Q28 13 17 17ZM23 12Q26 3 36 5Q35 14 23 12Z'/%3E%3C/g%3E%3C/svg%3E")}
+
+/* Photographic cutouts over separately folded, textured paper layers. */
+#stage{height:clamp(290px,48vw,400px);max-width:680px;overflow:hidden;isolation:isolate}
+#scene{inset:0;perspective:1100px;z-index:1}
+#envelope{z-index:2}.layered-ready #envelope .paper{visibility:hidden}
+.stationery{position:absolute;left:10%;top:29%;width:80%;aspect-ratio:1.66;transform-style:preserve-3d;--lining-light:.18;--card-shadow:0}
+.stationery>div{position:absolute;pointer-events:none}
+.paper-texture{background-image:url('./assets/pearl-paper.webp');background-size:290px 290px;background-color:#fffefb;background-blend-mode:multiply}
+.envelope-contact{inset:4px 0 -7px;box-shadow:0 15px 26px #7663431e,0 3px 7px #66512c13;border-radius:3px}
+.envelope-back{inset:0;border:1px solid #e5dfd3;border-radius:3px;box-shadow:inset 0 1px 0 #fff}
+.envelope-lining{inset:2px;background-color:#e9dfcb;box-shadow:inset 0 8px 20px #8a765922;filter:brightness(calc(1 + var(--lining-light)))}
+.envelope-side{inset:0;filter:drop-shadow(0 -1px 1px #80694b15)}
+.envelope-left{clip-path:polygon(0 0,53% 59%,0 100%);background-color:#fffefc}
+.envelope-right{clip-path:polygon(100% 0,47% 59%,100% 100%);background-color:#f9f7f1}
+.envelope-pocket{inset:0;clip-path:polygon(0 100%,0 96%,50% 47%,100% 96%,100% 100%);background-color:#fffefb;filter:drop-shadow(0 -2px 2px #80694b15);box-shadow:inset 0 -1px 1px #c3bbaa60}
+.envelope-flap{left:0;top:0;width:100%;height:65%;clip-path:polygon(0 0,100% 0,51% 98%);transform-origin:50% 0;transform:rotateX(0);background-color:#fffefb;filter:drop-shadow(0 2px 2px #7a644e20);backface-visibility:visible}
+.envelope-flap-shadow{left:0;top:0;width:100%;height:70%;opacity:0;background:linear-gradient(#67543c,transparent);clip-path:polygon(0 0,100% 0,50% 98%)}
+.stationery img{width:100%;height:100%;object-fit:contain;display:block;user-select:none}
+.extracting #stage{overflow:visible}.extracting #scene{z-index:4}.extracting .stationery{will-change:transform}
+#stage:after{display:none}
+.paper-texture{background-image:linear-gradient(#ffffffad,#ffffffad),url('./assets/pearl-paper.webp');background-blend-mode:normal,multiply}.envelope-lining{background-image:linear-gradient(#f3ebdd55,#f3ebdd55),url('./assets/pearl-paper.webp')}
+/* Clip only departing silk. The opening flap must never hit the stage edge. */
+#stage{overflow:visible}
+.stationery{perspective:850px;transform-style:flat}
+.envelope-back{z-index:0}.envelope-lining{z-index:1}.envelope-contact{z-index:-1}
+.envelope-side,.envelope-pocket{z-index:4}.envelope-flap{z-index:6}.envelope-flap-shadow{z-index:3}
+.envelope-flap{filter:drop-shadow(0 3px 2px #7a644e18)}
+
+/* Fine stationery inspired by the supplied pearl-paper and wax reference. */
+body{background:radial-gradient(ellipse at 35% 30%,#fffefa 0,#f7f4ee 63%,#f1ece3 100%)}
+.stationery{transform:rotate(-3deg);transform-origin:50% 50%;--seal-size:22%;--seal-gap:0px;--lining-light:.07}
+.envelope-back{border-radius:2px;border-color:#ded6c7;box-shadow:0 2px 0 #e3ddd1,inset 0 1px 0 #fffaf1}
+.paper-texture{background-color:#f5f0e7;background-image:linear-gradient(#f8f4ec9c,#f8f4ec9c),url('./assets/pearl-paper.webp');background-blend-mode:normal,multiply}
+.envelope-left{background-color:#f3ede3}.envelope-right{background-color:#eee7da}.envelope-pocket{background-color:#f4eee4}
+.envelope-lining{background-color:#e6dbc7;background-image:linear-gradient(#e8ddc955,#e8ddc955),url('./assets/pearl-paper.webp')}
+.envelope-contact{box-shadow:0 18px 32px #51453125,0 3px 6px #51453118}
+.envelope-flap{clip-path:none;background:none;filter:none;transform-origin:50% 0;transform-style:preserve-3d}
+.flap-surface{position:absolute;inset:0;clip-path:polygon(0 0,100% 0,51% 98%);background-color:#f9f5ed;filter:drop-shadow(0 2px 2px #7a644e20)}
+.flap-foil{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
+.envelope-foil{position:absolute;inset:0;width:100%;height:100%;z-index:5;pointer-events:none}
+.foil-glint{stroke-dasharray:105 1000;stroke-dashoffset:1100;opacity:0}
+.flap-print{position:absolute;left:20%;right:20%;top:23%;text-align:center;font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(10px,2.2vw,18px);line-height:1.1;color:#9a783d;text-shadow:0 1px 0 #fff4d4}
+.flap-print span{display:block}.flap-print i{display:block;font-size:.7em;font-weight:400;margin:2px 0}
+.seal-piece{position:absolute;width:var(--seal-size);aspect-ratio:1;left:calc(50% - var(--seal-size)/2);filter:drop-shadow(1px 3px 2px #58432b45);pointer-events:none}
+.seal-lower{top:calc(62% - var(--seal-size)*.83);z-index:7;clip-path:polygon(0 50%,19% 47%,35% 52%,51% 46%,67% 53%,82% 47%,100% 49%,100% 100%,0 100%);transform:translateY(var(--seal-gap))}
+.seal-upper{--seal-size:22%;left:calc(50% - var(--seal-size)/2);top:calc(95.3846% - var(--seal-size)*1.277);clip-path:polygon(0 0,100% 0,100% 51%,82% 49%,67% 55%,51% 48%,35% 54%,19% 49%,0 52%);transform:translateY(calc(-1 * var(--seal-gap)))}
+.stationery .wax-texture{width:100%;height:100%;object-fit:contain;display:block;user-select:none}
+.wax-logo{position:absolute;left:20%;top:32%;width:60%;height:36%;background:#98743a;mask:url('./assets/pri-beauty-emboss.webp') center/contain no-repeat;filter:drop-shadow(-.5px -.5px 0 #f8e8b8) drop-shadow(.5px .5px 0 #72532988);opacity:.83}
+.wax-logo:after{content:'';position:absolute;inset:0;background:linear-gradient(130deg,#eed6a3,#8e6b36);mix-blend-mode:soft-light}
+.seal-crack{position:absolute;left:39%;top:calc(62% - 18.26%);width:22%;aspect-ratio:1;z-index:8;opacity:0;pointer-events:none}
+.seal-crack path{stroke-dasharray:100;stroke-dashoffset:100}
+.seal-asset-unavailable .seal-piece,.seal-asset-unavailable .seal-crack{display:none}
+.card-inner{background:#fffdf8;background-image:linear-gradient(#fffdf8f5,#fffdf8f5),url('./assets/pearl-paper.webp');background-size:auto,320px;box-shadow:0 2px 0 #ddd4c3,0 20px 70px #a7834510}
+.flap-print{backface-visibility:hidden;transform:translateZ(.1px)}
+
+/* Intact wax first; the scored seal yields before the flap starts its main lift. */
+.seal-piece,.seal-crack{left:var(--seal-x);top:var(--seal-top);width:var(--seal-diameter);aspect-ratio:1}
+.seal-piece{filter:drop-shadow(.7px 2px 1.5px #624c3038) brightness(var(--seal-light,1));transform-origin:50% 50%}
+.seal-intact{z-index:8;transform:scaleY(var(--seal-compression,1));opacity:1}
+.seal-upper{opacity:0;transform:translateY(calc(-1 * var(--seal-gap))) scaleY(var(--seal-compression,1))}
+.seal-lower{opacity:0;transform:translateY(var(--seal-gap)) scaleY(var(--seal-compression,1))}
+.seal-crack{z-index:9;transform:scaleY(var(--seal-compression,1))}
+.seal-crack path{stroke:#765b38;stroke-width:1.15;filter:drop-shadow(0 -.5px .3px #f7e6bd);stroke-dasharray:100;stroke-dashoffset:100}
+.wax-logo{left:21%;top:33%;width:58%;height:34%;background:#a7844d;filter:drop-shadow(-.55px -.55px .2px #f8e8bd) drop-shadow(.45px .45px .2px #72532975);opacity:.9}
+.envelope-contact{box-shadow:0 18px 32px rgb(81 69 49 / var(--contact-strength,.12)),0 3px 6px #51453116}
+.envelope-lining{box-shadow:inset 0 6px 16px #8a76591c}
+
+/* Supplied portrait film: playback starts only after the opening gesture. */
+#stage{height:clamp(320px,51svh,490px);max-width:360px;aspect-ratio:768/1366;width:auto;margin:24px auto 20px}
+.film-frame{position:absolute;inset:0;border-radius:12px;overflow:hidden;background:#d2c3aa;box-shadow:0 15px 38px #59483d15}
+.opening-film{width:100%;height:100%;display:block;object-fit:contain}
+#scene{z-index:3;perspective:none}.film-ready #envelope .paper{visibility:hidden}
+.film-sound{position:absolute;right:12px;bottom:12px;pointer-events:auto;min-height:38px;padding:6px 12px;background:#fffaf0e6;border:1px solid #c5a46d80;border-radius:30px;font-size:10px;color:#59483d}
+.film-loading{position:absolute;left:12px;bottom:14px;color:#fff;background:#59483d99;padding:5px 10px;border-radius:20px;font-size:10px}
+.skip-opening{display:block;margin:12px auto 0;border:0;background:transparent;text-decoration:underline;text-underline-offset:4px;font-size:11px;color:#816c49;min-height:40px}
+.brands .amp{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(48px,9vw,64px);font-style:italic;font-weight:400;line-height:1;margin:18px 0 20px;color:#b38c4c;text-shadow:0 1px 0 #fff6e0}
+.extracting .film-sound,.extracting .film-loading{visibility:hidden}
+#stage{width:clamp(220px,38svh,400px);max-width:100%;height:auto;aspect-ratio:768/1366}
+
+/* Soft editorial type for the invitation; UI controls retain their compact face. */
+#card{font-family:'Lora',Georgia,serif;font-size:16px;line-height:1.9;color:#6b5845}
+#card p{font-weight:400}.card-inner>p{margin:24px 0}
+#card h3{font-family:'Cormorant Garamond',Georgia,serif;font-size:21px;font-weight:500;letter-spacing:.65px;line-height:1.4;color:#97733d}
+#card .brands h2,#card .brands h3{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(28px,5.3vw,42px);font-weight:400;letter-spacing:1.1px;line-height:1.16}
+#card .eyebrow{font-family:'Cormorant Garamond',Georgia,serif;font-size:17px;letter-spacing:1.3px;font-weight:500;line-height:1.5}
+#card .date time span{font-family:'Lora',Georgia,serif;font-size:14px;font-style:italic;letter-spacing:1px;text-transform:none}
+#card .personal{font-size:14px;font-style:italic;line-height:1.9;color:#8a755f}
+#card .closing{font:400 31px/1.3 'Cormorant Garamond',Georgia,serif;color:#9b794c}
+#card .card-inner>p:last-child{font-style:italic;font-size:14px;line-height:2}
+#card .card-inner>p:last-child strong{font-style:normal;font:500 16px/1.5 'Cormorant Garamond',Georgia,serif;letter-spacing:.8px}
+#card .primary,#card .controls,#card #share-status{font-family:Montserrat,Arial,sans-serif}
+#card .ornament{width:70px;height:1px;background:linear-gradient(90deg,transparent,#c5a46d,transparent);margin:32px auto}
+.invitation-mask .card-inner{background:var(--sheet-paper,#fffdf8);border-color:rgb(197 164 109 / var(--edge-opacity,1));outline-color:rgb(231 214 181 / var(--edge-opacity,1));box-shadow:0 var(--sheet-shadow,0px) 25px rgb(89 72 61 / var(--shadow-opacity,.12))}
+.invitation-mask .card-inner:before,.invitation-mask .card-inner:after,.invitation-mask .card-inner>*:not(.handoff-paper){opacity:var(--print-opacity,1)}
+.handoff-paper{position:absolute;left:-1px;top:-1px;width:calc(100% + 2px);height:auto;z-index:2;pointer-events:none;display:block}
+@media(max-width:375px){#card{font-size:15px}#card .brands h2,#card .brands h3{font-size:28px;letter-spacing:.7px}}

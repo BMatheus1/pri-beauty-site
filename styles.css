@@ -1379,3 +1379,5 @@ footer nav a {
     animation-duration: 0.01ms !important;
   }
 }
+
+.quick-link-invite{background:linear-gradient(120deg,#f8f5f0,#e7d6b5);border-color:#c5a46d;color:#59483d;}
