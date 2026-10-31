@@ -1,6 +1,6 @@
 import {handoff,renderedVideoBox} from './handoff-config.js';
 export async function createScene(container){
-  container.innerHTML=`<div class="film-frame"><video class="opening-film" playsinline muted preload="metadata" poster="./assets/opening-poster.webp?v=pri-beauty-2" aria-hidden="true"><source src="./assets/opening.mp4?v=pri-beauty-2" type="video/mp4"></video><span class="film-loading" role="status" hidden>Carregando abertura…</span><button class="film-sound" type="button" aria-pressed="false">Ativar som</button></div>`;
+  container.innerHTML=`<div class="film-frame"><video class="opening-film" playsinline muted preload="metadata" poster="./assets/opening-poster.webp?v=sem-marca-3" aria-hidden="true"><source src="./assets/opening.mp4?v=sem-marca-3" type="video/mp4"></video><span class="film-loading" role="status" hidden>Carregando abertura…</span><button class="film-sound" type="button" aria-pressed="false">Ativar som</button></div>`;
   const frame=container.querySelector('.film-frame'),video=container.querySelector('video'),loading=container.querySelector('.film-loading'),sound=container.querySelector('.film-sound');
   let settle=null,watchdog=null,frameCallback=null,prepared=false,onPrepare=null,handoffActive=false;
   const nativeFrames=typeof video.requestVideoFrameCallback==='function';
