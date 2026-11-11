@@ -25,7 +25,7 @@
   <meta name="twitter:image" content="https://pri-beauty.mylinkbr.workers.dev/images/compartilhar-pri-beauty-v1.jpg">
   <meta name="twitter:image:alt" content="Pri Beauty: logo com borboleta e fotografia da Priscila sobre fundo dourado.">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2732%27 fill=%27%23fff%27/%3E%3Ccircle cx=%2732%27 cy=%2732%27 r=%2728%27 fill=%27none%27 stroke=%27%23b89146%27 stroke-width=%273%27/%3E%3Ctext x=%2732%27 y=%2742%27 text-anchor=%27middle%27 font-size=%2732%27 fill=%27%23b89146%27 font-family=%27Georgia%27%3EP%3C/text%3E%3C/svg%3E">
-  <link rel="stylesheet" href="./styles.css?v=20261111-gold-formation">
+  <link rel="stylesheet" href="./styles.css?v=20261111-static-gold">
 </head>
 <body>
   <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
@@ -42,46 +42,6 @@
 
   <main id="conteudo">
     <section class="hero" id="inicio" aria-labelledby="hero-title">
-      <svg class="hero-logo" viewBox="0 0 1296 730" width="1296" height="730" role="img" aria-label="Logo Pri Beauty">
-        <defs>
-          <linearGradient id="hero-logo-gold" x1="0%" y1="0%" x2="56%" y2="100%">
-            <stop offset="0" stop-color="#95611e"/>
-            <stop offset=".20" stop-color="#e5b852"/>
-            <stop offset=".32" stop-color="#fff2b2"/>
-            <stop offset=".43" stop-color="#9b661e"/>
-            <stop offset=".54" stop-color="#cd922d"/>
-            <stop offset=".70" stop-color="#ffe8a1"/>
-            <stop offset=".82" stop-color="#b77d27"/>
-            <stop offset="1" stop-color="#81511a"/>
-          </linearGradient>
-          <linearGradient id="hero-logo-reflection">
-            <stop offset="0" stop-color="#fff5c5" stop-opacity="0"/>
-            <stop offset=".42" stop-color="#fff5c5" stop-opacity=".45"/>
-            <stop offset=".53" stop-color="#fff" stop-opacity=".95"/>
-            <stop offset="1" stop-color="#fff5c5" stop-opacity="0"/>
-          </linearGradient>
-          <mask id="hero-logo-shape" maskUnits="userSpaceOnUse" width="1296" height="730" style="mask-type:alpha">
-            <image href="./images/logo-pb-watermark.webp" width="1296" height="730"/>
-          </mask>
-          <mask id="hero-logo-formation" maskUnits="userSpaceOnUse" width="1296" height="730">
-            <g class="hero-logo-traces" fill="none" stroke="white" stroke-width="84" stroke-linecap="round" stroke-linejoin="round">
-                <path pathLength="1" d="M260 366 C123 273 -11 403 98 493 C220 595 394 524 503 374 C596 251 794 361 869 478 C949 604 1106 565 1148 400"/>
-                <path pathLength="1" d="M492 515 L492 147 L584 147 C754 146 768 347 586 358 L491 358"/>
-                <path pathLength="1" d="M626 655 L626 326 L689 326 C837 326 831 450 685 465 C861 462 884 676 695 660 L626 660"/>
-                <path pathLength="1" d="M641 434 C479 405 363 477 414 591 C465 699 627 681 711 617"/>
-                <path pathLength="1" d="M1141 392 C1209 282 1112 27 1076 99 C1046 157 1013 331 1141 392 C1032 167 939 203 989 304 C1021 355 1081 381 1141 392 C956 248 895 352 980 412 C1038 451 1109 401 1141 392"/>
-                <path pathLength="1" d="M1121 425 L1166 360 M1158 363 C1207 333 1188 296 1197 282 M1160 374 C1211 363 1228 327 1232 296"/>
-            </g>
-            <rect class="hero-logo-complete" width="1296" height="730" fill="white"/>
-          </mask>
-        </defs>
-        <g mask="url(#hero-logo-formation)">
-          <g mask="url(#hero-logo-shape)">
-            <rect width="1296" height="730" fill="url(#hero-logo-gold)"/>
-            <rect class="hero-logo-reflection" x="-360" width="320" height="950" fill="url(#hero-logo-reflection)"/>
-          </g>
-        </g>
-      </svg>
       <div class="hero-intro">
         <div class="hero-profile">
           <img src="./images/foto1.jpeg" width="740" height="1031" alt="Priscila sorrindo, profissional da Pri Beauty" decoding="async" fetchpriority="high">
@@ -92,6 +52,24 @@
             <span class="hero-tagline">Realçando a sua <em>beleza natural</em></span>
           </h1>
         </div>
+        <svg class="hero-logo" viewBox="0 0 1296 730" width="1296" height="730" role="img" aria-label="Logo Pri Beauty">
+          <defs>
+            <linearGradient id="hero-logo-gold" x1="0%" y1="0%" x2="56%" y2="100%">
+            <stop offset="0" stop-color="#95611e"/>
+            <stop offset=".20" stop-color="#e5b852"/>
+            <stop offset=".32" stop-color="#fff2b2"/>
+            <stop offset=".43" stop-color="#9b661e"/>
+            <stop offset=".54" stop-color="#cd922d"/>
+            <stop offset=".70" stop-color="#ffe8a1"/>
+            <stop offset=".82" stop-color="#b77d27"/>
+            <stop offset="1" stop-color="#81511a"/>
+          </linearGradient>
+            <mask id="hero-logo-shape" maskUnits="userSpaceOnUse" width="1296" height="730" style="mask-type:alpha">
+            <image href="./images/logo-pb-watermark.webp" width="1296" height="730"/>
+          </mask>
+          </defs>
+          <rect width="1296" height="730" fill="url(#hero-logo-gold)" mask="url(#hero-logo-shape)"/>
+        </svg>
       </div>
 
       <nav class="quick-nav" aria-label="Acessos principais">
