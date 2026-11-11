@@ -211,13 +211,6 @@ button {
   text-align: left;
 }
 
-.hero-logo {
-  width: clamp(210px, 28vw, 250px);
-  max-width: 100%;
-  height: auto;
-  filter: brightness(0.82) saturate(1.48) drop-shadow(0 3px 9px rgba(108, 72, 15, 0.16));
-  transform: translateX(-10px);
-}
 
 .hero-copy {
   min-width: 0;
@@ -1089,12 +1082,6 @@ footer nav a {
     padding: 3px;
   }
 
-  .hero-logo {
-    width: 100%;
-    max-width: 100%;
-    justify-self: center;
-    transform: none;
-  }
 
   .hero-name {
     font-size: clamp(0.82rem, 3.7vw, 1rem);
@@ -1199,10 +1186,6 @@ footer nav a {
     height: 128px;
   }
 
-  .hero-logo {
-    width: clamp(310px, 36vw, 410px);
-    transform: translateX(-22px);
-  }
 
   .hero-copy {
     transform: translateX(18px);
@@ -1335,10 +1318,6 @@ footer nav a {
     height: auto;
   }
 
-  .hero-logo {
-    width: 100%;
-    transform: none;
-  }
 
   .hero-name {
     font-size: 0.82rem;
@@ -1456,4 +1435,72 @@ footer nav a {
 
 .booking-policy-card p:last-child {
   margin-bottom: 0;
+}
+
+/* The monogram is the focal point above the homepage introduction. */
+.hero-logo {
+  display: block;
+  width: min(88%, 430px);
+  height: auto;
+  margin: 0 auto clamp(8px, 2vw, 20px);
+  filter: drop-shadow(0 4px 8px rgb(125 78 14 / 22%));
+}
+
+.hero .hero-intro {
+  left: auto;
+  width: min(100%, 570px);
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: clamp(12px, 3vw, 26px);
+  margin: 0 auto 26px;
+}
+
+.hero .hero-profile {
+  width: clamp(58px, 13vw, 92px);
+  height: auto;
+  aspect-ratio: 1;
+}
+
+.hero .hero-copy {
+  transform: none;
+}
+
+.hero-logo-reflection {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero-logo-traces path {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    animation: hero-logo-trace .95s ease-out both;
+  }
+
+  .hero-logo-traces path:nth-child(2) { animation-delay: .30s; }
+  .hero-logo-traces path:nth-child(3) { animation-delay: .58s; }
+  .hero-logo-traces path:nth-child(4) { animation-delay: .82s; }
+  .hero-logo-traces path:nth-child(5) { animation-delay: 1.05s; }
+  .hero-logo-traces path:nth-child(6) { animation-delay: 1.25s; }
+
+  .hero-logo-complete {
+    animation: hero-logo-complete .38s ease-out 1.82s both;
+  }
+
+  .hero-logo-reflection {
+    animation: hero-logo-reflection 1.12s ease-in-out 2.12s both;
+  }
+}
+
+@keyframes hero-logo-trace {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes hero-logo-complete {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes hero-logo-reflection {
+  0% { opacity: 0; transform: translateX(0) skewX(-16deg); }
+  20%, 80% { opacity: 1; }
+  100% { opacity: 0; transform: translateX(2000px) skewX(-16deg); }
 }
