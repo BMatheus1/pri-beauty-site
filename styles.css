@@ -215,8 +215,7 @@ button {
   width: clamp(210px, 28vw, 250px);
   max-width: 100%;
   height: auto;
-  opacity: 0.96;
-  filter: drop-shadow(0 4px 12px rgba(69, 45, 4, 0.12));
+  filter: brightness(0.82) saturate(1.48) drop-shadow(0 3px 9px rgba(108, 72, 15, 0.16));
   transform: translateX(-10px);
 }
 
